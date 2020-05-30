@@ -1,13 +1,16 @@
 {
-  "name": "Contentful Gatsby Starter",
-  "description": "Gatsby starter for a Contentful project.",
+  "name": "Sydney Pawtraits",
+  "description": "Sydney Pawtraits webstie",
   "keywords": [
     "contentful",
     "gatsby",
     "static",
-    "ssg"
+    "ssg",
+    "pets",
+    "portraits",
+    "art"
   ],
-  "repository": "https://github.com/contentful-userland/gatsby-contentful-starter",
+  "repository": "https://github.com/jezzzm/pawtraits",
   "success_url": "/",
   "buildpacks": [
     {
