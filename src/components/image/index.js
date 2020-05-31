@@ -13,10 +13,21 @@ const text = css`
   text-align: center;
 `;
 
-export default function Image({name, index, thumbnail, onClick, ...imgAttribs}) {
+export default function Image({
+  name,
+  index,
+  thumbnail,
+  onClick,
+  ...imgAttribs
+}) {
   return (
     <div onClick={onClick}>
-      <img data-index={index} css={image(thumbnail)} {...imgAttribs} />
+      <img
+        data-index={index}
+        css={image(thumbnail)}
+        {...imgAttribs}
+        loading="lazy"
+      />
       <p css={text}>{name}</p>
     </div>
   );

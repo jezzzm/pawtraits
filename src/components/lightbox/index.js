@@ -5,6 +5,7 @@ import React, {
   useLayoutEffect,
   useRef,
 } from 'react';
+import { motion } from 'framer-motion';
 import * as styles from './lightbox.style';
 
 export default function useLightbox(nodes, styleOverride = null) {
@@ -49,15 +50,29 @@ export default function useLightbox(nodes, styleOverride = null) {
     return () => window.removeEventListener('keydown', keyListener);
   }, [index, previous, next]);
 
-  const Lightbox = () =>
-    isOpen && (
-      <div css={styles.lightbox(styleOverride)}>
-        <button onClick={() => setIsOpen(false)} css={styles.close}>
-          Close
-        </button>
-        {nodes[index]}
-      </div>
+  const Lightbox = useCallback(() => {
+    const variants = {
+      hidden: { backgroundColor: 'blue' },
+      visibile: { backgroundColor: 'red' },
+    };
+
+    return (
+      isOpen && (
+        <div css={styles.lightbox(styleOverride)}>
+          <button onClick={() => setIsOpen(false)} css={styles.close}>
+            Close
+          </button>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            {nodes[index]}
+          </motion.div>
+        </div>
+      )
     );
+  }, [index, isOpen, nodes, styleOverride]);
 
   return [Lightbox, setIndex, setIsOpen];
 }
