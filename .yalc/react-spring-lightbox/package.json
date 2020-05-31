@@ -1,0 +1,72 @@
+{
+    "name": "react-spring-lightbox",
+    "version": "1.4.10-784ebb47",
+    "description": "A flexible image gallery lightbox with native-feeling touch gestures and buttery smooth animations, built with react-spring.",
+    "author": "Tim Ellenberger <timellenberger@gmail.com>",
+    "license": "MIT",
+    "repository": "tim-soft/react-spring-lightbox",
+    "sideEffects": false,
+    "bugs": {
+        "url": "https://github.com/tim-soft/react-spring-lightbox/issues"
+    },
+    "homepage": "https://timellenberger.com",
+    "keywords": [
+        "react",
+        "spring",
+        "lightbox",
+        "modal",
+        "gallery",
+        "touch",
+        "gestures",
+        "images"
+    ],
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.es.js",
+    "jsnext:main": "dist/index.es.js",
+    "engines": {
+        "node": ">=8",
+        "npm": ">=5"
+    },
+    "scripts": {
+        "fix": "yarn fix:eslint && yarn fix:prettier",
+        "fix:eslint": "eslint --fix \"**/*.*\"",
+        "fix:prettier": "prettier --write \"**/*.*\"",
+        "lint": "yarn lint:eslint && yarn lint:prettier",
+        "lint:eslint": "eslint \"**/*.*\"",
+        "lint:prettier": "prettier --check \"**/*.*\"",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "build": "rollup -c",
+        "start": "rollup -c -w",
+        "prepare": "yarn run build"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{json,md}": [
+            "prettier --write",
+            "git add --force"
+        ],
+        "*.{js, jsx}": [
+            "prettier --write",
+            "eslint --no-ignore --fix",
+            "git add --force"
+        ]
+    },
+    "peerDependencies": {
+        "prop-types": ">=15.5.4",
+        "react": ">=16.8",
+        "react-dom": ">=16.8",
+        "styled-components": ">= 5.X"
+    },
+    "files": [
+        "dist"
+    ],
+    "dependencies": {
+        "react-spring": "^9.0.0",
+        "react-use-gesture": "^7.0.15"
+    }
+}

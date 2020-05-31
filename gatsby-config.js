@@ -4,14 +4,14 @@ const { parsed } = dotenv.config({
   path: `.env`,
 });
 
-const contentfulConfig = {
+const options = {
   spaceId: parsed.CONTENTFUL_SPACE_ID,
   accessToken: parsed.CONTENTFUL_ACCESS_TOKEN,
 };
 
-const { spaceId, accessToken } = contentfulConfig;
+const { spaceId, accessToken } = options;
 
-if (!spaceId || !accessToken) {
+if (!options.spaceId || !options.accessToken) {
   throw new Error(
     'Contentful spaceId and the access token need to be provided.'
   );
@@ -29,7 +29,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-source-contentful',
-      options: contentfulConfig,
+      options,
     },
   ],
 };
