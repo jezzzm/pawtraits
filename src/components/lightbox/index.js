@@ -1,54 +1,24 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { css } from '@emotion/core';
-
-const lightbox = (styleOverride) => css`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  ${styleOverride
-    ? css`
-        ${styleOverride}
-      `
-    : css`
-        background: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      `}
-`;
-
-const close = css`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 50px;
-`;
-
-const bodyNoScroll = (enabled) =>
-  enabled &&
-  css`
-    overflow: hidden;
-  `;
+import React, {
+  useCallback,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react';
+import * as styles from './lightbox.style';
 
 export default function useLightbox(nodes, styleOverride = null) {
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const fullWidth = useRef(document.body.scrollWidth);
 
-  const previous = () => index > 0 && setIndex(index - 1);
-  const next = () => index + 1 < nodes.length && setIndex(index + 1);
+  const previous = useCallback(() => {
+    index > 0 ? setIndex((prev) => prev - 1) : setIndex(nodes.length - 1);
+  }, [index, nodes.length]);
 
-  const Lightbox = () =>
-    isOpen && (
-      <div css={lightbox(styleOverride)}>
-        <button onClick={() => setIsOpen(false)} css={close}>
-          Close
-        </button>
-        {nodes[index]}
-      </div>
-    );
+  const next = useCallback(() => {
+    index + 1 < nodes.length ? setIndex((prev) => prev + 1) : setIndex(0);
+  }, [index, nodes.length]);
 
   useLayoutEffect(() => {
     const width = document.body.scrollWidth;
@@ -65,7 +35,6 @@ export default function useLightbox(nodes, styleOverride = null) {
 
   useEffect(() => {
     const keyListener = (event) => {
-      console.log(index, index + 1);
       if (event.key === 'ArrowRight') {
         next();
       } else if (event.key === 'ArrowLeft') {
@@ -78,7 +47,17 @@ export default function useLightbox(nodes, styleOverride = null) {
     window.addEventListener('keydown', keyListener);
 
     return () => window.removeEventListener('keydown', keyListener);
-  }, []);
+  }, [index, previous, next]);
+
+  const Lightbox = () =>
+    isOpen && (
+      <div css={styles.lightbox(styleOverride)}>
+        <button onClick={() => setIsOpen(false)} css={styles.close}>
+          Close
+        </button>
+        {nodes[index]}
+      </div>
+    );
 
   return [Lightbox, setIndex, setIsOpen];
 }

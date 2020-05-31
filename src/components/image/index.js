@@ -10,17 +10,13 @@ const image = (thumbnail) => css`
 
 const text = css`
   margin: 0;
+  text-align: center;
 `;
 
 export default function Image({name, index, thumbnail, onClick, ...imgAttribs}) {
   return (
-    <div>
-      <img
-        css={image(thumbnail)}
-        data-index={index}
-        onClick={onClick}
-        {...imgAttribs}
-      />
+    <div onClick={onClick}>
+      <img data-index={index} css={image(thumbnail)} {...imgAttribs} />
       <p css={text}>{name}</p>
     </div>
   );

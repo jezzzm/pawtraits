@@ -17,15 +17,15 @@ export default function Home({ data }) {
   const images = ({ thumbnail = false } = {}) =>
     pawtraits.map(({ image, name }, index) => (
       <Image
-        thumbnail={thumbnail}
         key={index + name}
+        thumbnail={thumbnail}
         name={name}
         index={index}
+        onClick={handleImageClick}
         src={image[0].fluid.src}
         alt={image[0].title}
         srcSet={image[0].fluid.srcSet}
         sizes={image[0].fluid.sizes}
-        onClick={handleImageClick}
       />
     ));
 
