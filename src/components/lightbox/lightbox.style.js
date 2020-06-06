@@ -3,9 +3,9 @@ import { css } from '@emotion/core';
 export const lightbox = (styleOverride) => css`
   position: fixed;
   top: 0;
-  bottom: 0;
+  height: 100%;
   left: 0;
-  right: 0;
+  width: 100%;
   ${styleOverride
     ? css`
         ${styleOverride}

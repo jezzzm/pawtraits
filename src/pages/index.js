@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import Layout from '../components/layout';
 import useLightbox from '../components/lightbox';
 import Image from '../components/image';
 
@@ -14,11 +15,11 @@ export default function Home({ data }) {
     setIsOpen(true);
   };
 
-  const images = ({ thumbnail = false } = {}) =>
+  const images = ({ isThumbnail = false } = {}) =>
     pawtraits.map(({ image, name }, index) => (
       <Image
         key={index + name}
-        thumbnail={thumbnail}
+        isThumbnail={isThumbnail}
         name={name}
         index={index}
         onClick={handleImageClick}
@@ -32,11 +33,11 @@ export default function Home({ data }) {
   const [Lightbox, setIndex, setIsOpen] = useLightbox(images());
 
   return (
-    <div>
+    <Layout>
       <Helmet title={siteTitle} />
-      <div>{images({ thumbnail: true })}</div>
+      <div>{images({ isThumbnail: true })}</div>
       <Lightbox />
-    </div>
+    </Layout>
   );
 }
 

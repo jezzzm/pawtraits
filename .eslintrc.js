@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', 'emotion'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
@@ -11,6 +11,7 @@ module.exports = {
   globals: {
     graphql: true,
   },
+  parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2018,
