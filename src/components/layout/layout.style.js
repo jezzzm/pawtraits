@@ -1,6 +1,10 @@
 import { css } from '@emotion/core';
 
- const layout = css`
+export const pageContainer = css`
+  margin-top: 48px;
+`;
+
+export const layout = css`
   html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
@@ -184,5 +188,3 @@ import { css } from '@emotion/core';
 
 
 `;
-
-export default layout;
