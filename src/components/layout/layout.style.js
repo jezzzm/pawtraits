@@ -10,6 +10,7 @@ export const layout = css`
     -webkit-text-size-adjust: 100%;
     * {
       box-sizing: border-box;
+      font-family: Helvetica, sans-serif;
     }
     body {
       margin: 0;
