@@ -1,11 +1,10 @@
-const contentful = require('contentful-management');
-const { spaceId, managementToken: accessToken } = require('../../contentful-config');
+import * as contentful from 'contentful-management';
 
 const client = contentful.createClient({
-  accessToken,
+  accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 })
 
-const requestPawtrait = async ({
+export const requestPawtrait = async ({
   requesterName,
   requesterEmail,
   requesterPhone,
@@ -18,7 +17,7 @@ const requestPawtrait = async ({
   additionalComments
 }) => {
   try {
-    const space = await client.getSpace(spaceId)
+    const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID)
     const post = await space.createEntry('pawtraitRequest', {
       fields: {
         requesterName: {
@@ -58,5 +57,3 @@ const requestPawtrait = async ({
     console.log('failed :', err)
   }
 }
-
-module.exports = { requestPawtrait };
