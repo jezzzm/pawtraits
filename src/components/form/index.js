@@ -1,11 +1,37 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../input';
+import { requestPawtrait } from '../../api/contenful';
 
 export default function Form({ isOpen, onClose }) {
-  const { register, setValue, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm();
   const formData = watch();
-  const onSubmit = () => console.log(watch());
+  const onSubmit = async () => {
+    const { requesterName,
+      requesterEmail,
+      requesterPhone,
+      petName,
+      breed,
+      description,
+      referenceImages,
+      rushed,
+      extraPrints,
+      additionalComments } = formData;
+
+    await requestPawtrait({
+      requesterName,
+      requesterEmail,
+      requesterPhone,
+      petName,
+      breed,
+      description,
+      referenceImages,
+      rushed,
+      extraPrints,
+      additionalComments
+    })
+    console.log(watch())
+  };
 
   // if extra prints radio true, show options for sizes and prices
 
