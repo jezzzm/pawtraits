@@ -1,5 +1,3 @@
-import { css } from '@emotion/core';
-
 export const MAX_MOBILE_WIDTH = 850;
 export const MIN_DESKTOP_WIDTH = 851;
 
