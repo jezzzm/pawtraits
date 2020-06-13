@@ -1,14 +1,14 @@
 import { useState, useLayoutEffect } from 'react';
+import useIsMounted from './use-is-mounted';
 
 const isBrowser = typeof window !== undefined;
-const getWidth = () => (isBrowser ? window.innerWidth : undefined);
+const getWidth = () => (isBrowser && window.innerWidth) || 0;
 
 export default function useWindowWidth() {
-  const [width, setWidth] = useState(getWidth);
+  const isMounted = useIsMounted();
+  const [width, setWidth] = useState(() => (isMounted ? getWidth() : 0));
+
   useLayoutEffect(() => {
-    if (!isBrowser) {
-      return null;
-    }
     const update = () => setWidth(getWidth());
     window.addEventListener('resize', update);
 
