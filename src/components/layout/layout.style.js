@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { isMobile, isDesktop } from '../../utils/breakpoints';
+import fonts from './fonts.style';
 
 export const pageContainer = css`
   margin: 0 auto;
@@ -14,39 +15,8 @@ export const pageContainer = css`
   }
 `;
 
-const pageFonts = css`
-  @font-face {
-    font-family: 'RubikRegular';
-    src: url('../../../static/fonts/rubik/Rubik-Regular.woff2') format(woff2),
-      url('../../../static/fonts/rubik/Rubik-Regular.woff') format(woff);
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'RubikMedium';
-    src: url('../../../static/fonts/rubik/Rubik-Medium.woff2') format(woff2),
-      url('../../../static/fonts/rubik/Rubik-Medium.woff') format(woff);
-    font-weight: 500;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'RubikLight';
-    src: url('../../../static/fonts/rubik/Rubik-Light.woff2') format(woff2),
-      url('../../../static/fonts/rubik/Rubik-Light.woff') format(woff);
-    font-weight: 300;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'Karla';
-    src: url('../../../static/fonts/karla/Karla-Regular.woff2') format(woff2),
-      url('../../../static/fonts/karla/Karla-Regular.woff') format(woff);
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
-
 export const layout = css`
-  ${pageFonts}
+  ${fonts}
 
   html {
     line-height: 1.15;
@@ -54,7 +24,7 @@ export const layout = css`
 
     * {
       box-sizing: border-box;
-      font-family: 'Karla', serif, Helvetica, Arial, sans-serif;
+      font-family: Karla, Helvetica, Arial, sans-serif;
     }
 
     h1,
@@ -63,7 +33,9 @@ export const layout = css`
     h4,
     h5,
     h6 {
-      font-family: 'RubikMedium', Helvetica, Arial, sans-serif;
+      font-family: Rubik, Helvetica, Arial, sans-serif;
+      font-weight: 500;
+      font-style: normal;
     }
 
     body {

@@ -11,7 +11,6 @@ export const header = css`
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-
   ${isDesktop} {
     top: 0;
     height: 64px;
