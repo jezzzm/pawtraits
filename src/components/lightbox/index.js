@@ -57,10 +57,13 @@ export default function useLightbox(nodes, styleOverride = null) {
     return (
       isOpen && (
         <div css={styles.lightbox(styleOverride)}>
-          <button onClick={() => setIsOpen(false)} css={styles.close}>
-            Close
-          </button>
+          <div css={styles.closeContainer}>
+            <button onClick={() => setIsOpen(false)} css={styles.close}>
+              Close
+            </button>
+          </div>
           <motion.div
+            css={styles.contentContainer}
             variants={variants}
             drag="x"
             dragDirectionLock

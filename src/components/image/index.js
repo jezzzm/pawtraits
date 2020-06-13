@@ -21,9 +21,12 @@ export default function Image({
           css={styles.image(isThumbnail)}
           {...imgAttribs}
           loading="lazy"
+          draggable={false}
         />
       </ButtonOrDiv>
-      <p css={styles.text(isThumbnail)}>{name}</p>
+      <div css={styles.textContainer(isThumbnail)}>
+        {isThumbnail ? <p>{name}</p> : <h1>{name}</h1>}
+      </div>
     </div>
   );
 }
