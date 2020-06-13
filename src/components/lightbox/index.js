@@ -7,11 +7,13 @@ import React, {
 } from 'react';
 import { motion } from 'framer-motion';
 import * as styles from './lightbox.style';
+import useIsMounted from '../../utils/use-is-mounted';
 
 export default function useLightbox(nodes, styleOverride = null) {
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const fullWidth = useRef(document.body.scrollWidth);
+  const isMounted = useIsMounted();
+  const fullWidth = useRef(() => isMounted ? document.body.scrollWidth : null);
 
   const previous = useCallback(() => {
     index > 0 ? setIndex((prev) => prev - 1) : setIndex(nodes.length - 1);
@@ -32,6 +34,7 @@ export default function useLightbox(nodes, styleOverride = null) {
       document.body.style.height = '';
       fullWidth.current = width;
     }
+
   }, [isOpen]);
 
   useEffect(() => {
