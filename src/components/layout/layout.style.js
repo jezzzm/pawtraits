@@ -1,7 +1,9 @@
 import { css } from '@emotion/core';
 
 export const pageContainer = css`
-  margin-top: 48px;
+  margin: 48px auto 0;
+  padding: 24px 0;
+  max-width: 1280px;
 `;
 
 export const layout = css`

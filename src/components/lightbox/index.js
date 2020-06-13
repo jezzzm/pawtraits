@@ -54,11 +54,6 @@ export default function useLightbox(nodes, styleOverride = null) {
   }, [index, previous, next]);
 
   const Lightbox = useCallback(() => {
-    const variants = {
-      hidden: { backgroundColor: 'blue' },
-      visibile: { backgroundColor: 'red' },
-    };
-
     return (
       isOpen && (
         <div css={styles.lightbox(styleOverride)}>

@@ -1,9 +1,16 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import { css } from '@emotion/core';
 import Layout from '../components/layout';
 import useLightbox from '../components/lightbox';
 import Image from '../components/image';
+
+const gallery = css`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-gap: 24px;
+`;
 
 export default function Home({ data }) {
   const siteTitle = data.site.siteMetadata.title;
@@ -35,7 +42,7 @@ export default function Home({ data }) {
   return (
     <Layout>
       <Helmet title={siteTitle} />
-      <div>{images({ isThumbnail: true })}</div>
+      <div css={gallery}>{images({ isThumbnail: true })}</div>
       <Lightbox />
     </Layout>
   );
