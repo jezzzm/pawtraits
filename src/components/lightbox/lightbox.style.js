@@ -20,7 +20,6 @@ export const lightbox = (styleOverride) => css`
 
 export const close = css`
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 50px;
+  top: 24px;
+  left: 24px;
 `;

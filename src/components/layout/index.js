@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Global } from '@emotion/core';
 import * as styles from './layout.style';
-import Header from '../header'
+import Header from '../header';
 import Form from '../form';
 
 export default function Layout({ children }) {
@@ -15,4 +15,4 @@ export default function Layout({ children }) {
       {children}
     </div>
   );
-};
+}

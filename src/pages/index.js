@@ -7,9 +7,8 @@ import useLightbox from '../components/lightbox';
 import Image from '../components/image';
 
 const gallery = css`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-  grid-gap: 24px;
+  column-gap: 24px;
+  columns: auto 12rem;
 `;
 
 export default function Home({ data }) {
