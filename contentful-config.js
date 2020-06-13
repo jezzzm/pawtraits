@@ -4,13 +4,14 @@ const { parsed } = dotenv.config({ path: '.env' });
 
 const options = {
   spaceId:
-    (parsed && parsed.CONTENTFUL_SPACE_ID) || process.env.CONTENTFUL_SPACE_ID,
+    (parsed && parsed.CONTENTFUL_SPACE_ID) ||
+    process.env.GATSBY_CONTENTFUL_SPACE_ID,
   accessToken:
     (parsed && parsed.CONTENTFUL_ACCESS_TOKEN) ||
-    process.env.CONTENTFUL_ACCESS_TOKEN,
+    process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
   managementToken:
     (parsed && parsed.CONTENTFUL_MANAGEMENT_TOKEN) ||
-    process.env.CONTENTFUL_MANAGEMENT_TOKEN,
+    process.env.GATSBY_CONTENTFUL_MANAGEMENT_TOKEN,
 };
 
 const { spaceId, accessToken } = options;

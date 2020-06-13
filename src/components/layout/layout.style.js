@@ -17,29 +17,29 @@ export const pageContainer = css`
 const pageFonts = css`
   @font-face {
     font-family: 'RubikRegular';
-    src: url('../../../static/fonts/rubik/Rubik-Regular.woff2'),
-      url('../../../static/fonts/rubik/Rubik-Regular.woff');
+    src: url('../../../static/fonts/rubik/Rubik-Regular.woff2') format(woff2),
+      url('../../../static/fonts/rubik/Rubik-Regular.woff') format(woff);
     font-weight: normal;
     font-style: normal;
   }
   @font-face {
     font-family: 'RubikMedium';
-    src: url('../../../static/fonts/rubik/Rubik-Medium.woff2'),
-      url('../../../static/fonts/rubik/Rubik-Medium.woff');
+    src: url('../../../static/fonts/rubik/Rubik-Medium.woff2') format(woff2),
+      url('../../../static/fonts/rubik/Rubik-Medium.woff') format(woff);
     font-weight: 500;
     font-style: normal;
   }
   @font-face {
     font-family: 'RubikLight';
-    src: url('../../../static/fonts/rubik/Rubik-Light.woff2'),
-      url('../../../static/fonts/rubik/Rubik-Light.woff');
+    src: url('../../../static/fonts/rubik/Rubik-Light.woff2') format(woff2),
+      url('../../../static/fonts/rubik/Rubik-Light.woff') format(woff);
     font-weight: 300;
     font-style: normal;
   }
   @font-face {
     font-family: 'Karla';
-    src: url('../../../static/fonts/karla/Karla-Regular.woff2'),
-      url('../../../static/fonts/karla/Karla-Regular.woff');
+    src: url('../../../static/fonts/karla/Karla-Regular.woff2') format(woff2),
+      url('../../../static/fonts/karla/Karla-Regular.woff') format(woff);
     font-weight: normal;
     font-style: normal;
   }
