@@ -1,11 +1,6 @@
 const dotenv = require('dotenv');
 
 const { parsed } = dotenv.config({ path: '.env' });
-console.log(
-  process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
-  process.env.GATSBY_CONTENTFUL_MANAGEMENT_TOKEN,
-  process.env.GATSBY_CONTENTFUL_SPACE_ID
-);
 
 const options = {
   spaceId:
