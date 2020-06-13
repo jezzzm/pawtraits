@@ -14,14 +14,58 @@ export const pageContainer = css`
   }
 `;
 
+const pageFonts = css`
+  @font-face {
+    font-family: 'RubikRegular';
+    src: url('../../../static/fonts/rubik/Rubik-Regular.woff2'),
+      url('../../../static/fonts/rubik/Rubik-Regular.woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RubikMedium';
+    src: url('../../../static/fonts/rubik/Rubik-Medium.woff2'),
+      url('../../../static/fonts/rubik/Rubik-Medium.woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'RubikLight';
+    src: url('../../../static/fonts/rubik/Rubik-Light.woff2'),
+      url('../../../static/fonts/rubik/Rubik-Light.woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Karla';
+    src: url('../../../static/fonts/karla/Karla-Regular.woff2'),
+      url('../../../static/fonts/karla/Karla-Regular.woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
+
 export const layout = css`
+  ${pageFonts}
+
   html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
+
     * {
       box-sizing: border-box;
-      font-family: Helvetica, sans-serif;
+      font-family: 'Karla', serif, Helvetica, Arial, sans-serif;
     }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'RubikMedium', Helvetica, Arial, sans-serif;
+    }
+
     body {
       margin: 0;
       main {
