@@ -3,9 +3,12 @@ const dotenv = require('dotenv');
 const { parsed } = dotenv.config({ path: '.env' });
 
 const options = {
-  spaceId: parsed.CONTENTFUL_SPACE_ID,
-  accessToken: parsed.CONTENTFUL_ACCESS_TOKEN,
-  managementToken: parsed.CONTENTFUL_MANAGEMENT_TOKEN,
+  spaceId: parsed.CONTENTFUL_SPACE_ID || process.env.CONTENTFUL_SPACE_ID,
+  accessToken:
+    parsed.CONTENTFUL_ACCESS_TOKEN || process.env.CONTENTFUL_ACCESS_TOKEN,
+  managementToken:
+    parsed.CONTENTFUL_MANAGEMENT_TOKEN ||
+    process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 };
 
 const { spaceId, accessToken } = options;
