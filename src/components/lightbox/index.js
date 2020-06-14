@@ -50,9 +50,9 @@ export default function Lightbox({
   const handleDragEnd = async (event, info) => {
     const widthThreshhold = size.width / 2;
 
-    if (info.velocity.x < -1500 || info.offset.x < -1 * widthThreshhold) {
+    if (info.velocity.x < -1000 || info.offset.x < -1 * widthThreshhold) {
       next();
-    } else if (info.velocity.x > 1500 || info.offset.x > widthThreshhold) {
+    } else if (info.velocity.x > 1000 || info.offset.x > widthThreshhold) {
       previous();
     }
   };
