@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import * as styles from './lightbox.style';
-import useWindowWidth from '../../utils/use-window-width';
+import useWindowSize from '../../utils/use-window-size';
 import useModalOpen from '../../utils/use-modal-open';
 
 const variants = {
@@ -18,7 +18,7 @@ const variants = {
 export default function useLightbox(nodes, styleOverride = null) {
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useModalOpen(false);
-  const width = useWindowWidth();
+  const size = useWindowSize();
 
   const previous = useCallback(() => {
     index > 0 ? setIndex((prev) => prev - 1) : setIndex(nodes.length - 1);
@@ -46,7 +46,7 @@ export default function useLightbox(nodes, styleOverride = null) {
 
   const Lightbox = useCallback(() => {
     const handleDragEnd = async (event, info) => {
-      const widthThreshhold = (2 * width) / 3;
+      const widthThreshhold = size.width / 2;
 
       if (info.velocity.x < -1500 || info.offset.x < -1 * widthThreshhold) {
         next();
@@ -76,7 +76,16 @@ export default function useLightbox(nodes, styleOverride = null) {
         </div>
       )
     );
-  }, [index, isOpen, nodes, styleOverride, setIsOpen, width, next, previous]);
+  }, [
+    index,
+    isOpen,
+    nodes,
+    styleOverride,
+    setIsOpen,
+    size.width,
+    next,
+    previous,
+  ]);
 
   return [Lightbox, setIndex, setIsOpen];
 }
