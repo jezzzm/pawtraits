@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
-import * as styles from './index.style';
+import * as styles from './home.style';
 import Form from '../components/form';
 import Layout from '../components/layout';
 import Modal from '../components/modal';
