@@ -8,10 +8,9 @@ export const outer = css`
   background: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   padding: 0 2rem;
-  height: 4rem;
+  height: 6rem;
   ${isDesktop} {
     top: 0;
-    height: 6rem;
   }
 
   ${isMobile} {
@@ -21,7 +20,9 @@ export const outer = css`
 
 export const inner = css`
   height: 100%;
-
+  ${isMobile} {
+    margin-bottom: 2rem;
+  }
   ${isDesktop} {
     display: flex;
     justify-content: space-between;
@@ -36,7 +37,8 @@ export const buttonContainer = css`
     height: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
+    margin-top: 1.2rem;
   }
 `;
 
