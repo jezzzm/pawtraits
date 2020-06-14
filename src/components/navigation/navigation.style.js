@@ -21,3 +21,11 @@ export const navigation = css`
     height: 48px;
   }
 `;
+
+export const button = css`
+  background: #268e46;
+  border: 0;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.4rem;
+  color: white;
+`;

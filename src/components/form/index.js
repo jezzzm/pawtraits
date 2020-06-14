@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Input from '../input';
 import { requestPawtrait } from '../../services/contenful';
 
-export default function Form({ isOpen, onClose }) {
+export default function Form() {
   const { register, handleSubmit, watch, errors } = useForm();
   const formData = watch();
   const onSubmit = async () => {
@@ -37,9 +37,8 @@ export default function Form({ isOpen, onClose }) {
 
   // if extra prints radio true, show options for sizes and prices
 
-  return isOpen ? (
+  return (
     <div>
-      <button onClick={onClose}>Close</button>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="requesterName"
@@ -89,5 +88,5 @@ export default function Form({ isOpen, onClose }) {
         <Input type="submit" />
       </form>
     </div>
-  ) : null;
+  );
 }

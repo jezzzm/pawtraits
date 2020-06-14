@@ -34,7 +34,7 @@ export default function useWindowSize() {
     if (size.width === 0 && isMounted) {
       update();
     }
-  }, [isMounted]);
+  }, [isMounted, size.width]);
 
   return { size, isMobile };
 }

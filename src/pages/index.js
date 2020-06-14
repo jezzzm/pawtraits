@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import { css } from '@emotion/core';
+import Form from '../components/form';
 import Layout from '../components/layout';
 import Lightbox from '../components/lightbox';
 import Image from '../components/image';
 import Thumbnail from '../components/thumbnail';
 import useModalOpen from '../utils/use-modal-open';
+import lightboxOpen from '../recoil/lightbox-open';
+import formOpen from '../recoil/form-open';
 
 const gallery = css`
   column-gap: 24px;
@@ -18,7 +21,10 @@ export default function Home({ data }) {
   const pawtraits = data.allContentfulPawtrait.nodes;
 
   const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [isOpenLightbox, setIsOpenLightbox] = useModalOpen(false);
+  const [isOpenLightbox, setIsOpenLightbox] = useModalOpen(lightboxOpen);
+
+  const [formIndex, setFormIndex] = useState(0);
+  const [isOpenForm, setIsOpenForm] = useModalOpen(formOpen);
 
   const handleThumbClick = (index) => {
     setLightboxIndex(index);
@@ -41,22 +47,32 @@ export default function Home({ data }) {
           />
         ))}
       </div>
-      <Lightbox
-        content={pawtraits.map(({ image, name }, index) => (
-          <Image
-            key={index + name}
-            name={name}
-            src={image[0].fluid.src}
-            alt={image[0].title}
-            srcSet={image[0].fluid.srcSet}
-            sizes={image[0].fluid.sizes}
-          />
-        ))}
-        index={lightboxIndex}
-        setIndex={setLightboxIndex}
-        isOpen={isOpenLightbox}
-        setIsOpen={setIsOpenLightbox}
-      />
+      {isOpenForm ? (
+        <Lightbox
+          content={<Form />}
+          index={formIndex}
+          setIndex={setFormIndex}
+          isOpen={isOpenForm}
+          setIsOpen={setIsOpenForm}
+        />
+      ) : (
+        <Lightbox
+          content={pawtraits.map(({ image, name }, index) => (
+            <Image
+              key={index + name}
+              name={name}
+              src={image[0].fluid.src}
+              alt={image[0].title}
+              srcSet={image[0].fluid.srcSet}
+              sizes={image[0].fluid.sizes}
+            />
+          ))}
+          index={lightboxIndex}
+          setIndex={setLightboxIndex}
+          isOpen={isOpenLightbox}
+          setIsOpen={setIsOpenLightbox}
+        />
+      )}
     </Layout>
   );
 }

@@ -1,8 +1,9 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
+import { useRecoilState } from 'recoil';
 import useIsMounted from './use-is-mounted';
 
-export default function useModalOpen(initialState) {
-  const [isOpen, setIsOpen] = useState(initialState);
+export default function useModalOpen(atom) {
+  const [isOpen, setIsOpen] = useRecoilState(atom);
   const isMounted = useIsMounted();
   const actualWidth = useRef(() =>
     isMounted ? document.body.scrollWidth : null
