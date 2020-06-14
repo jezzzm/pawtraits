@@ -11,13 +11,18 @@ export default function useWindowSize() {
     isMounted ? { width: getWidth(), height: getHeight() } : 0
   );
 
-  useLayoutEffect(() => {
-    const update = () => {
-      setSize({ width: getWidth(), height: getHeight() });
-    };
-    window.addEventListener('resize', update);
+  const update = () => {
+    setSize({ width: getWidth(), height: getHeight() });
+  };
 
+  useLayoutEffect(() => {
+    window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
+  }, []);
+
+  useLayoutEffect(() => {
+    window.addEventListener('orientationchange', update);
+    return () => window.removeEventListener('orientationchange', update);
   }, []);
 
   return size;
