@@ -28,15 +28,22 @@ export const image = css`
   margin 4rem auto;
 `;
 
-export const copy = css``;
+export const copy = css`
+  p {
+    margin-top: 0.8rem;
+    margin-bottom: 2rem;
+  }
+  h4 {
+    margin-bottom: 0.8rem;
+  }
+`;
 
 export const button = css`
   display: block;
-  margin: 2rem auto;
+  margin: 4rem auto;
 `;
 
 export const hi = css`
-  border-top: 1px solid currentColor;
   text-align: center;
   padding: 4rem 0;
   margin: 4rem auto 0;
@@ -65,4 +72,9 @@ export const icon = css`
   &:first-of-type {
     margin-right: 1rem;
   }
+`;
+
+export const copyright = css`
+  font-size: 0.8rem;
+  text-align: center;
 `;

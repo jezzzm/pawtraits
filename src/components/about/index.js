@@ -31,7 +31,7 @@ export default function About({ image }) {
           alt={description}
         />
         <div css={styles.copy}>
-          <h2>The Artist</h2>
+          <h2>👩‍🎨 The Artist</h2>
           <p>
             I’m Nicki, an artist living and working in Sydney, specialising in
             highly detailed pet portraiture. I love drawing and animals, and
@@ -57,7 +57,7 @@ export default function About({ image }) {
           >
             Get your own
           </button>
-          <h2>The Process</h2>
+          <h2>✎ The Process</h2>
           <h4>Paper</h4>
           <p>
             I use Fabriano Artistico hot pressed 300gsm paper, an acid free
@@ -97,6 +97,10 @@ export default function About({ image }) {
           </div>
         </div>
       </div>
+      <p css={styles.copyright}>
+        Copyright &copy; {new Date().getFullYear()} Sydney Pawtraits. All rights
+        reserved.
+      </p>
     </div>
   );
 }
