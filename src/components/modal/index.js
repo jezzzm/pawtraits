@@ -61,7 +61,7 @@ export default function Modal({
   return (
     isOpen && (
       <div
-        css={styles.lightbox}
+        css={styles.modal}
         style={{ height: size.height, width: size.width }}
       >
         <div css={styles.header}>

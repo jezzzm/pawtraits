@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { isDesktop, isMobile } from '../../utils/breakpoints';
 
-export const lightbox = css`
+export const modal = css`
   position: fixed;
   top: 0;
   height: 100vh;
