@@ -59,7 +59,10 @@ export default function Lightbox({
 
   return (
     isOpen && (
-      <div css={styles.lightbox}>
+      <div
+        css={styles.lightbox}
+        style={{ height: size.height, width: size.width }}
+      >
         <div css={styles.header}>
           <button onClick={() => setIsOpen(false)} css={styles.close}>
             Close
