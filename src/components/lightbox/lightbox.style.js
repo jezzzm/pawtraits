@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { isDesktop } from '../../utils/breakpoints';
+import { isDesktop, isMobile } from '../../utils/breakpoints';
 
 export const lightbox = css`
   position: fixed;
@@ -8,15 +8,26 @@ export const lightbox = css`
   left: 0;
   width: 100vw;
   display: grid;
-  grid-template-rows: 6rem auto;
-
-  background: #efeeee;
   color: #443636;
+  background: white;
+
+  ${isMobile} {
+    background: white;
+    grid-template-rows: 4rem auto;
+  }
+  ${isDesktop} {
+    grid-template-rows: 6rem auto;
+  }
 `;
 
-export const closeContainer = css`
-  margin: 2rem;
+export const header = css`
   align-self: center;
+  ${isMobile} {
+    margin-left: 1rem;
+  }
+  ${isDesktop} {
+    margin-left: 2rem;
+  }
 `;
 
 export const close = css`
@@ -28,19 +39,19 @@ export const close = css`
   font-weight: 300;
 
   background: #efeeee;
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0.4rem;
-  box-shadow: -3px -3px 8px rgba(255, 255, 255, 0.6), 3px 3px 8px #d1cdc780;
+  border: 0;
 `;
 
-export const contentContainer = css`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+export const content = css`
+  display: grid;
+
+  ${isMobile} {
+    grid-template-rows: 4rem auto;
+    align-items: start;
+  }
   ${isDesktop} {
-    margin-bottom: 24px;
-    max-height: calc(100% - 76px);
-    padding: 0 36px 48px;
+    grid-template-columns: 40% 60%;
+    align-items: center;
   }
 `;

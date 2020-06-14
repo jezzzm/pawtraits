@@ -5,7 +5,7 @@ import { css } from '@emotion/core';
 import Layout from '../components/layout';
 import Lightbox from '../components/lightbox';
 import Image from '../components/image';
-import Thumbnail from '../components/image-thumbnail';
+import Thumbnail from '../components/thumbnail';
 import useModalOpen from '../utils/use-modal-open';
 
 const gallery = css`
@@ -20,9 +20,8 @@ export default function Home({ data }) {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isOpenLightbox, setIsOpenLightbox] = useModalOpen(false);
 
-  const handleImageClick = (e) => {
-    const index = e.target.attributes['data-index'].value;
-    setLightboxIndex(Number(index));
+  const handleThumbClick = (index) => {
+    setLightboxIndex(index);
     setIsOpenLightbox(true);
   };
 
@@ -32,11 +31,9 @@ export default function Home({ data }) {
       <div css={gallery}>
         {pawtraits.map(({ image, name }, index) => (
           <Thumbnail
-            key={index + name}
-            isThumbnail={true}
+            key={index + name + 'thumb'}
             name={name}
-            index={index}
-            onClick={handleImageClick}
+            onClick={() => handleThumbClick(index)}
             src={image[0].fluid.src}
             alt={image[0].title}
             srcSet={image[0].fluid.srcSet}
@@ -48,10 +45,7 @@ export default function Home({ data }) {
         content={pawtraits.map(({ image, name }, index) => (
           <Image
             key={index + name}
-            isThumbnail={false}
             name={name}
-            index={index}
-            onClick={handleImageClick}
             src={image[0].fluid.src}
             alt={image[0].title}
             srcSet={image[0].fluid.srcSet}

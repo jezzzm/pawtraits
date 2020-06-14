@@ -25,11 +25,11 @@ export default function Lightbox({
 
   const previous = useCallback(() => {
     index > 0 ? setIndex((prev) => prev - 1) : setIndex(content.length - 1);
-  }, [index, content.length]);
+  }, [index, setIndex, content.length]);
 
   const next = useCallback(() => {
     index + 1 < content.length ? setIndex((prev) => prev + 1) : setIndex(0);
-  }, [index, content.length]);
+  }, [index, setIndex, content.length]);
 
   useEffect(() => {
     const keyListener = (event) => {
@@ -60,13 +60,13 @@ export default function Lightbox({
   return (
     isOpen && (
       <div css={styles.lightbox}>
-        <div css={styles.closeContainer}>
+        <div css={styles.header}>
           <button onClick={() => setIsOpen(false)} css={styles.close}>
             Close
           </button>
         </div>
         <motion.div
-          css={styles.contentContainer}
+          css={styles.content}
           variants={variants}
           drag="x"
           dragDirectionLock

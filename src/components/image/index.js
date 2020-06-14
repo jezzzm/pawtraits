@@ -1,32 +1,23 @@
-import React from 'react';
-import ButtonOrDiv from './button-or-div';
+import React, { Fragment } from 'react';
 import * as styles from './image.style';
 
-export default function Image({
-  name,
-  index,
-  isThumbnail,
-  onClick,
-  ...imgAttribs
-}) {
+export default function Image({ name, alt, src, srcset, sizes }) {
   return (
-    <div css={styles.wrapper(isThumbnail)}>
-      <ButtonOrDiv
-        type={isThumbnail ? 'button' : 'div'}
-        onClick={onClick}
-        css={styles.imageContainer(isThumbnail)}
-      >
+    <Fragment>
+      <div css={styles.info}>
+        <h1>{name}</h1>
+      </div>
+      <div css={styles.imageContainer}>
         <img
-          data-index={index}
-          css={styles.image(isThumbnail)}
-          {...imgAttribs}
+          css={styles.image}
+          alt={alt}
+          src={src}
+          srcSet={srcset}
+          sizes={sizes}
           loading="lazy"
-          draggable={false}
+          draggable={false /*make conditional mobile/desktop*/}
         />
-        <div css={styles.textContainer(isThumbnail)}>
-          {isThumbnail ? <p>{name}</p> : <h1>{name}</h1>}
-        </div>
-      </ButtonOrDiv>
-    </div>
+      </div>
+    </Fragment>
   );
 }
