@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import * as styles from './lightbox.style';
+import * as styles from './modal.style';
 import useWindowSize from '../../utils/use-window-size';
 
 const variants = {
@@ -14,7 +14,7 @@ const variants = {
   },
 };
 
-export default function Lightbox({
+export default function Modal({
   index,
   setIndex,
   isOpen,

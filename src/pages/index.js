@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import * as styles from './index.style';
 import Form from '../components/form';
 import Layout from '../components/layout';
-import Lightbox from '../components/lightbox';
+import Modal from '../components/modal';
 import Image from '../components/image';
 import Thumbnail from '../components/thumbnail';
 import useModalOpen from '../utils/use-modal-open';
@@ -47,16 +47,16 @@ export default function Home({ data }) {
         ))}
       </div>
       {isOpenForm ? (
-        <Lightbox
+        <Modal
           index={formIndex}
           setIndex={setFormIndex}
           isOpen={isOpenForm}
           setIsOpen={setIsOpenForm}
         >
           <Form />
-        </Lightbox>
+        </Modal>
       ) : (
-        <Lightbox
+        <Modal
           index={lightboxIndex}
           setIndex={setLightboxIndex}
           isOpen={isOpenLightbox}
@@ -72,7 +72,7 @@ export default function Home({ data }) {
               sizes={image[0].fluid.sizes}
             />
           ))}
-        </Lightbox>
+        </Modal>
       )}
     </Layout>
   );
