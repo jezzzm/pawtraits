@@ -13,12 +13,14 @@ export default function Navigation() {
   };
 
   return (
-    <div css={styles.navigation}>
-      {!isMobile && <h2>Sydney Pawtraits</h2>}
-      <div>
-        <button css={styles.button} onClick={handleOwnClick}>
-          Get Your Own
-        </button>
+    <div css={styles.outer}>
+      <div css={styles.inner}>
+        {!isMobile && <h2>Sydney Pawtraits</h2>}
+        <div>
+          <button css={styles.button} onClick={handleOwnClick}>
+            Get Your Own
+          </button>
+        </div>
       </div>
     </div>
   );

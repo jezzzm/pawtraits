@@ -48,15 +48,21 @@ export default function Home({ data }) {
       </div>
       {isOpenForm ? (
         <Lightbox
-          content={<Form />}
           index={formIndex}
           setIndex={setFormIndex}
           isOpen={isOpenForm}
           setIsOpen={setIsOpenForm}
-        />
+        >
+          <Form />
+        </Lightbox>
       ) : (
         <Lightbox
-          content={pawtraits.map(({ image, name }, index) => (
+          index={lightboxIndex}
+          setIndex={setLightboxIndex}
+          isOpen={isOpenLightbox}
+          setIsOpen={setIsOpenLightbox}
+        >
+          {pawtraits.map(({ image, name }, index) => (
             <Image
               key={index + name}
               name={name}
@@ -66,11 +72,7 @@ export default function Home({ data }) {
               sizes={image[0].fluid.sizes}
             />
           ))}
-          index={lightboxIndex}
-          setIndex={setLightboxIndex}
-          isOpen={isOpenLightbox}
-          setIsOpen={setIsOpenLightbox}
-        />
+        </Lightbox>
       )}
     </Layout>
   );

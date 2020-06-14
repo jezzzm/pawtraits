@@ -1,15 +1,12 @@
 import { css } from '@emotion/core';
 import { isMobile, isDesktop } from '../../utils/breakpoints';
 
-export const navigation = css`
+export const outer = css`
   position: fixed;
   left: 0;
   width: 100%;
   background: white;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 2rem;
   height: 4rem;
   ${isDesktop} {
@@ -19,6 +16,17 @@ export const navigation = css`
 
   ${isMobile} {
     bottom: 0;
+  }
+`;
+
+export const inner = css`
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ${isDesktop} {
+    max-width: 1280px;
+    margin: 0 auto;
   }
 `;
 

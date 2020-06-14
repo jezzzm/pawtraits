@@ -12,16 +12,13 @@ export const imageContainer = css`
 export const image = css`
   background: white;
   align-self: center;
+  max-width: 100%;
   max-height: 100%;
 
   ${isMobile} {
     height: auto;
-    width: 100%;
-    object-fit: cover;
-  }
 
-  ${isDesktop} {
-    max-width: 100%;
+    margin: 0 auto;
   }
 `;
 
