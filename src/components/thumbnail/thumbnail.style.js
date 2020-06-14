@@ -25,6 +25,6 @@ export const textContainer = css`
   margin: 0;
   text-align: center;
   flex: 0;
-  padding: 12px;
+  padding: 0 0 1rem;
   width: 100%;
 `;
