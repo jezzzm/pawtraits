@@ -7,14 +7,11 @@ export const lightbox = css`
   height: 100vh;
   left: 0;
   width: 100vw;
-  display: grid;
   color: #443636;
   background: white;
+  display: grid;
+  grid-template-rows: 4rem auto;
 
-  ${isMobile} {
-    background: white;
-    grid-template-rows: 4rem auto;
-  }
   ${isDesktop} {
     grid-template-rows: 6rem auto;
   }
@@ -22,22 +19,21 @@ export const lightbox = css`
 
 export const header = css`
   align-self: center;
-  ${isMobile} {
-    margin-left: 1rem;
-  }
+  margin-left: 1rem;
+
   ${isDesktop} {
     margin-left: 2rem;
   }
 `;
 
 export const close = css`
-  color: #443636;
   z-index: 100;
   padding: 0.4rem 1.2rem;
-  transition: 0.2s all;
+
   font-family: Rubik;
   font-weight: 300;
 
+  color: #443636;
   background: #efeeee;
   border-radius: 0.4rem;
   border: 0;
