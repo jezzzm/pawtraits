@@ -11,6 +11,7 @@ import useModalOpen from '../utils/use-modal-open';
 import useWindowSize from '../utils/use-window-size';
 import lightboxOpen from '../recoil/lightbox-open';
 import formOpen from '../recoil/form-open';
+import aboutOpen from '../recoil/about-open';
 
 export default function Home({ data }) {
   const siteTitle = data.site.siteMetadata.title;
@@ -23,6 +24,8 @@ export default function Home({ data }) {
 
   const [formIndex, setFormIndex] = useState(0);
   const [isOpenForm, setIsOpenForm] = useModalOpen(formOpen);
+
+  const [isOpenAbout, setIsOpenAbout] = useModalOpen(aboutOpen);
 
   const handleThumbClick = (index) => {
     setLightboxIndex(index);
@@ -74,6 +77,14 @@ export default function Home({ data }) {
           ))}
         </Modal>
       )}
+      <Modal
+        index={0}
+        setIndex={() => {}}
+        isOpen={isOpenAbout}
+        setIsOpen={setIsOpenAbout}
+      >
+        About Sydney Pawtraits
+      </Modal>
     </Layout>
   );
 }

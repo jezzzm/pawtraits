@@ -22,7 +22,8 @@ export default function Modal({
   children,
 }) {
   const { size } = useWindowSize();
-  const content = children.length ? children : [children];
+  const content =
+    children.length && typeof children === 'object' ? children : [children];
 
   const previous = useCallback(() => {
     index > 0 ? setIndex((prev) => prev - 1) : setIndex(content.length - 1);

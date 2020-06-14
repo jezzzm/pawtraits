@@ -21,12 +21,22 @@ export const outer = css`
 
 export const inner = css`
   height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
   ${isDesktop} {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     max-width: 1280px;
     margin: 0 auto;
+  }
+`;
+
+export const buttonContainer = css`
+  ${isMobile} {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -39,4 +49,10 @@ export const button = css`
   ${isDesktop} {
     padding: 0.6rem 1.8rem;
   }
+`;
+
+export const about = css`
+  background: none;
+  border: 0;
+  margin-right: 2rem;
 `;
