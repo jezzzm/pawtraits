@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
-import * as styles from '../page-styles/index.style';
+import * as styles from '../styles/index.style';
 import About from '../components/about';
 import Form from '../components/form';
 import Layout from '../components/layout';
@@ -18,6 +18,7 @@ import aboutOpen from '../recoil/about-open';
 export default function Home({ data }) {
   const siteTitle = data.site.siteMetadata.title;
   const pawtraits = data.allContentfulPawtrait.nodes;
+  const aboutImage = data.contentfulAsset;
 
   const { isMobile } = useWindowSize();
 
@@ -83,7 +84,7 @@ export default function Home({ data }) {
         setIndex={() => {}}
         isOpen={isOpenAbout}
         setIsOpen={setIsOpenAbout}
-        screens={<About />}
+        screens={<About image={aboutImage} />}
       />
     </Layout>
   );
@@ -95,6 +96,14 @@ export const pageQuery = graphql`
       siteMetadata {
         title
       }
+    }
+    contentfulAsset(title: { eq: "nicki" }) {
+      fluid {
+        sizes
+        src
+        srcSet
+      }
+      description
     }
     allContentfulPawtrait {
       nodes {

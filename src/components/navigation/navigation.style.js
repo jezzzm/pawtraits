@@ -6,7 +6,7 @@ export const outer = css`
   left: 0;
   width: 100%;
   background: white;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   padding: 0 2rem;
   height: 4rem;
   ${isDesktop} {
@@ -40,19 +40,16 @@ export const buttonContainer = css`
   }
 `;
 
-export const button = css`
-  background: #268e46;
+export const about = css`
+  background: none;
   border: 0;
+  margin-right: 2rem;
   padding: 0.4rem 1.2rem;
-  border-radius: 0.4rem;
-  color: white;
   ${isDesktop} {
     padding: 0.6rem 1.8rem;
   }
 `;
 
-export const about = css`
-  background: none;
-  border: 0;
-  margin-right: 2rem;
+export const heading = css`
+  font-weight: 300;
 `;

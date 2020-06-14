@@ -33,7 +33,6 @@ export const close = css`
   font-family: Rubik;
   font-weight: 300;
 
-  color: #443636;
   background: #efeeee;
   border-radius: 0.4rem;
   border: 0;

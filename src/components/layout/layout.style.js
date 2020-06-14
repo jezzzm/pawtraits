@@ -25,6 +25,7 @@ export const layout = css`
     * {
       box-sizing: border-box;
       font-family: Karla, Helvetica, Arial, sans-serif;
+      color: #443636;
     }
 
     body {

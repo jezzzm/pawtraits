@@ -16,7 +16,7 @@ module.exports = {
       options: {
         spaceId,
         accessToken,
-      }
+      },
     },
   ],
 };
