@@ -1,27 +1,22 @@
 import { css } from '@emotion/core';
 import { isDesktop } from '../../utils/breakpoints';
 
-export const lightbox = (styleOverride) => css`
+export const lightbox = css`
   position: fixed;
   top: 0;
   height: 100vh;
   left: 0;
   width: 100vw;
-  flex-direction: column;
-  display: flex;
-  ${styleOverride
-    ? css`
-        ${styleOverride}
-      `
-    : css`
-        background: #efeeee;
-        color: #443636;
-      `}
+  display: grid;
+  grid-template-rows: 6rem auto;
+
+  background: #efeeee;
+  color: #443636;
 `;
 
 export const closeContainer = css`
-  margin: 24px;
-  flex: 0;
+  margin: 2rem;
+  align-self: center;
 `;
 
 export const close = css`
