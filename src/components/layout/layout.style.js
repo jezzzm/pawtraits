@@ -8,10 +8,10 @@ export const pageContainer = css`
   max-width: 1280px;
 
   ${isMobile} {
-    margin-bottom: 48px;
+    margin-bottom: 6rem;
   }
   ${isDesktop} {
-    margin-top: 64px;
+    margin-top: 8rem;
   }
 `;
 

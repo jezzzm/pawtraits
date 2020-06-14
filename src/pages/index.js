@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
-import { css } from '@emotion/core';
+import * as styles from './index.style';
 import Form from '../components/form';
 import Layout from '../components/layout';
 import Lightbox from '../components/lightbox';
 import Image from '../components/image';
 import Thumbnail from '../components/thumbnail';
 import useModalOpen from '../utils/use-modal-open';
+import useWindowSize from '../utils/use-window-size';
 import lightboxOpen from '../recoil/lightbox-open';
 import formOpen from '../recoil/form-open';
-
-const gallery = css`
-  column-gap: 24px;
-  columns: auto 12rem;
-`;
 
 export default function Home({ data }) {
   const siteTitle = data.site.siteMetadata.title;
   const pawtraits = data.allContentfulPawtrait.nodes;
+
+  const { isMobile } = useWindowSize();
 
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isOpenLightbox, setIsOpenLightbox] = useModalOpen(lightboxOpen);
@@ -34,7 +32,8 @@ export default function Home({ data }) {
   return (
     <Layout>
       <Helmet title={siteTitle} />
-      <div css={gallery}>
+      {isMobile && <h1 css={styles.mobileHeading}>Sydney Pawtraits</h1>}
+      <div css={styles.gallery}>
         {pawtraits.map(({ image, name }, index) => (
           <Thumbnail
             key={index + name + 'thumb'}

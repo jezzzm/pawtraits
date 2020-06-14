@@ -10,15 +10,15 @@ export const navigation = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 2rem;
+  height: 4rem;
   ${isDesktop} {
     top: 0;
-    height: 64px;
+    height: 6rem;
   }
 
   ${isMobile} {
     bottom: 0;
-    height: 48px;
   }
 `;
 
@@ -28,4 +28,7 @@ export const button = css`
   padding: 0.4rem 1.2rem;
   border-radius: 0.4rem;
   color: white;
+  ${isDesktop} {
+    padding: 0.6rem 1.8rem;
+  }
 `;
