@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import { isDesktop, isMobile } from '../../utils/breakpoints';
+import { isDesktop } from '../../utils/breakpoints';
 
 export const modal = css`
   position: fixed;
@@ -37,17 +37,4 @@ export const close = css`
   background: #efeeee;
   border-radius: 0.4rem;
   border: 0;
-`;
-
-export const content = css`
-  display: grid;
-
-  ${isMobile} {
-    grid-template-rows: 4rem auto;
-    align-items: start;
-  }
-  ${isDesktop} {
-    grid-template-columns: 40% 60%;
-    align-items: center;
-  }
 `;

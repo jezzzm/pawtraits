@@ -1,29 +1,18 @@
 import React, { useCallback, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import * as styles from './modal.style';
 import useWindowSize from '../../utils/use-window-size';
-
-const variants = {
-  next: {
-    x: '-100%',
-    pointerEvents: 'none',
-  },
-  previous: {
-    x: '100%',
-    pointerEvents: 'none',
-  },
-};
 
 export default function Modal({
   index,
   setIndex,
   isOpen,
   setIsOpen,
-  children,
+  screens,
+  Wrapper = ({ children }) => <div>{children}</div>,
 }) {
   const { size } = useWindowSize();
   const content =
-    children.length && typeof children === 'object' ? children : [children];
+    screens.length && typeof screens === 'object' ? screens : [screens];
 
   const previous = useCallback(() => {
     index > 0 ? setIndex((prev) => prev - 1) : setIndex(content.length - 1);
@@ -49,16 +38,6 @@ export default function Modal({
     return () => window.removeEventListener('keydown', keyListener);
   }, [index, previous, next, setIsOpen]);
 
-  const handleDragEnd = async (event, info) => {
-    const widthThreshhold = size.width / 2;
-
-    if (info.velocity.x < -1000 || info.offset.x < -1 * widthThreshhold) {
-      next();
-    } else if (info.velocity.x > 1000 || info.offset.x > widthThreshhold) {
-      previous();
-    }
-  };
-
   return (
     isOpen && (
       <div
@@ -70,17 +49,9 @@ export default function Modal({
             Close
           </button>
         </div>
-        <motion.div
-          css={styles.content}
-          variants={variants}
-          drag="x"
-          dragDirectionLock
-          dragConstraints={{ left: 0, right: 0 }}
-          onDragEnd={handleDragEnd}
-          onDragStart={(e) => e.stopPropagation()}
-        >
+        <Wrapper next={next} previous={previous} width={size.width}>
           {content[index]}
-        </motion.div>
+        </Wrapper>
       </div>
     )
   );

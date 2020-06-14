@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import { Helmet } from 'react-helmet';
 import * as styles from '../page-styles/index.style';
+import About from '../components/about';
 import Form from '../components/form';
 import Layout from '../components/layout';
+import LightboxWrapper from '../components/lightbox/wrapper';
 import Modal from '../components/modal';
 import Image from '../components/image';
 import Thumbnail from '../components/thumbnail';
@@ -55,17 +57,16 @@ export default function Home({ data }) {
           setIndex={setFormIndex}
           isOpen={isOpenForm}
           setIsOpen={setIsOpenForm}
-        >
-          <Form />
-        </Modal>
+          screens={<Form />}
+        />
       ) : (
         <Modal
           index={lightboxIndex}
           setIndex={setLightboxIndex}
           isOpen={isOpenLightbox}
           setIsOpen={setIsOpenLightbox}
-        >
-          {pawtraits.map(({ image, name }, index) => (
+          Wrapper={LightboxWrapper}
+          screens={pawtraits.map(({ image, name }, index) => (
             <Image
               key={index + name}
               name={name}
@@ -75,16 +76,15 @@ export default function Home({ data }) {
               sizes={image[0].fluid.sizes}
             />
           ))}
-        </Modal>
+        />
       )}
       <Modal
         index={0}
         setIndex={() => {}}
         isOpen={isOpenAbout}
         setIsOpen={setIsOpenAbout}
-      >
-        About Sydney Pawtraits
-      </Modal>
+        screens={<About />}
+      />
     </Layout>
   );
 }

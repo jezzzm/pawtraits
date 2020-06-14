@@ -27,18 +27,21 @@ export const layout = css`
       font-family: Karla, Helvetica, Arial, sans-serif;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: Rubik, Helvetica, Arial, sans-serif;
-      font-weight: 500;
-      font-style: normal;
-    }
-
     body {
+      p {
+        line-height: 1.45;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: Rubik, Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      }
       margin: 0;
       main {
         display: block;
