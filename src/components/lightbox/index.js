@@ -21,7 +21,7 @@ export default function Lightbox({
   setIsOpen,
   content,
 }) {
-  const size = useWindowSize();
+  const { size } = useWindowSize();
 
   const previous = useCallback(() => {
     index > 0 ? setIndex((prev) => prev - 1) : setIndex(content.length - 1);

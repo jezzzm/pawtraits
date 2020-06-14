@@ -1,18 +1,23 @@
 import { useState, useLayoutEffect } from 'react';
 import useIsMounted from './use-is-mounted';
+import { MAX_MOBILE_WIDTH } from './breakpoints';
 
-const isBrowser = typeof window !== undefined;
-const getWidth = () => (isBrowser && window.innerWidth) || 0;
-const getHeight = () => (isBrowser && window.innerHeight) || 0;
+const getWidth = () => window.innerWidth;
+const getHeight = () => window.innerHeight;
 
 export default function useWindowSize() {
   const isMounted = useIsMounted();
   const [size, setSize] = useState(() =>
-    isMounted ? { width: getWidth(), height: getHeight() } : 0
+    isMounted
+      ? { width: getWidth(), height: getHeight() }
+      : { width: 0, height: 0 }
   );
+  const [isMobile, setIsMobile] = useState(false);
 
   const update = () => {
-    setSize({ width: getWidth(), height: getHeight() });
+    const width = getWidth();
+    setSize({ width, height: getHeight() });
+    setIsMobile(() => width <= MAX_MOBILE_WIDTH);
   };
 
   useLayoutEffect(() => {
@@ -25,5 +30,11 @@ export default function useWindowSize() {
     return () => window.removeEventListener('orientationchange', update);
   }, []);
 
-  return size;
+  useLayoutEffect(() => {
+    if (size.width === 0 && isMounted) {
+      update();
+    }
+  }, [isMounted]);
+
+  return { size, isMobile };
 }

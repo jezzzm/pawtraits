@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { isMobile, isDesktop } from '../../utils/breakpoints';
 
-export const header = css`
+export const navigation = css`
   position: fixed;
   left: 0;
   width: 100%;
