@@ -48,6 +48,7 @@ export default function Home({ data }) {
             src={image[0].fluid.src}
             alt={image[0].title}
             srcSet={image[0].fluid.srcSet}
+            srcSetWebp={image[0].fluid.srcSetWebp}
             sizes={image[0].fluid.sizes}
           />
         ))}
@@ -74,6 +75,7 @@ export default function Home({ data }) {
               src={image[0].fluid.src}
               alt={image[0].title}
               srcSet={image[0].fluid.srcSet}
+              srcSetWebp={image[0].fluid.srcSetWebp}
               sizes={image[0].fluid.sizes}
             />
           ))}
@@ -119,10 +121,11 @@ export const pageQuery = graphql`
         age
         artworkSize
         image {
-          fluid {
+          fluid(maxWidth: 800, maxHeight: 800) {
             srcSet
             src
             sizes
+            srcSetWebp
           }
           title
         }
