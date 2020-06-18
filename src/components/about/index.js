@@ -19,8 +19,8 @@ export default function About({ image }) {
     setFormOpen(true);
   };
   return (
-    <div css={styles.outer}>
-      <div css={styles.inner}>
+    <div css={shared.scrollableInModal}>
+      <div css={[styles.inner, shared.modalInnerWrapper]}>
         <h1 css={styles.title}>More Information</h1>
         <img
           css={styles.image}
@@ -31,7 +31,12 @@ export default function About({ image }) {
           alt={description}
         />
         <div css={styles.copy}>
-          <h2>👩‍🎨 The Artist</h2>
+          <h2>
+            <span role="img" aria-label="artist emoji">
+              👩‍🎨
+            </span>{' '}
+            The Artist
+          </h2>
           <p>
             I’m Nicki, an artist living and working in Sydney, specialising in
             highly detailed pet portraiture. I love drawing and animals, and
@@ -52,12 +57,17 @@ export default function About({ image }) {
             Pawtrait of your own.
           </p>
           <button
-            css={[shared.ctaButton, styles.button]}
+            css={[shared.ctaButton(), styles.button]}
             onClick={handleFormOpen}
           >
             Get your own
           </button>
-          <h2>✎ The Process</h2>
+          <h2>
+            <span role="img" aria-label="pencil emoji">
+              ✎
+            </span>{' '}
+            The Process
+          </h2>
           <h4>Paper</h4>
           <p>
             I use Fabriano Artistico hot pressed 300gsm paper, an acid free
@@ -69,7 +79,12 @@ export default function About({ image }) {
             I use a combination of Faber-Castell Polychromos and Prismacolor
             pencils.
           </p>
-          <h1 css={styles.hi}>Say hi! &#128075;</h1>
+          <h1 css={styles.hi}>
+            Say hi!{' '}
+            <span role="img" aria-label="wave emoji">
+              &#128075;
+            </span>
+          </h1>
           <a
             href="mailto:woof@sydneypawtraits.com"
             alt="Email Sydney Pawtraits"
@@ -82,6 +97,7 @@ export default function About({ image }) {
               href="https://www.instagram.com/sydneypawtraits/?hl=en"
               alt="Sydney Pawtraits on Instagram"
               target="_blank"
+              rel="noreferrer"
               css={styles.icon}
             >
               <img src={instagram} alt="Instagram Logo" />
@@ -90,6 +106,7 @@ export default function About({ image }) {
               href="https://facebook.com/sydneypawtraits"
               alt="Sydney Pawtraits on Facebook"
               target="_blank"
+              rel="noreferrer"
               css={styles.icon}
             >
               <img src={facebook} alt="Facebook Logo" />

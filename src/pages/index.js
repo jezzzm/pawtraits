@@ -100,10 +100,14 @@ export const pageQuery = graphql`
       }
     }
     contentfulAsset(title: { eq: "nicki" }) {
-      fluid {
+      fluid(
+        cropFocus: TOP
+        maxHeight: 420
+        maxWidth: 360
+        resizingBehavior: CROP
+      ) {
         sizes
         src
-        srcSet
       }
       description
     }

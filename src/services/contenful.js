@@ -9,12 +9,12 @@ export const requestPawtrait = async ({
   requesterEmail,
   requesterPhone,
   petName,
-  breed,
-  description,
-  referenceImages,
+  breed = undefined,
+  description = undefined,
+  referenceImage = undefined,
   rushed,
   extraPrints,
-  additionalComments,
+  additionalComments = undefined,
 }) => {
   try {
     const space = await client.getSpace(process.env.GATSBY_CONTENTFUL_SPACE_ID);
@@ -39,7 +39,7 @@ export const requestPawtrait = async ({
           'en-US': description,
         },
         referenceImages: {
-          'en-US': referenceImages,
+          'en-US': [referenceImage],
         },
         rushed: {
           'en-US': rushed,

@@ -19,7 +19,7 @@ export default function Navigation() {
           <button css={styles.about} onClick={() => setAboutOpen(true)}>
             More Info
           </button>
-          <button css={ctaButton} onClick={() => setFormOpen(true)}>
+          <button css={ctaButton()} onClick={() => setFormOpen(true)}>
             Get Your Own
           </button>
         </div>
