@@ -19,7 +19,7 @@ export default function About({ image }) {
     setFormOpen(true);
   };
   return (
-    <div css={shared.scrollableInModal}>
+    <div css={shared.modalContentScrollable}>
       <div css={[styles.inner, shared.modalInnerWrapper]}>
         <h1 css={styles.title}>More Information</h1>
         <img

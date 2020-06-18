@@ -25,4 +25,9 @@ export const page = (index) => css`
   ${isDesktop} {
     top: 6rem;
   }
+  * {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;

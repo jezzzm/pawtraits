@@ -9,8 +9,7 @@ import { requestPawtrait } from '../../services/contenful';
 import useWindowSize from '../../utils/use-window-size';
 
 export default function Form() {
-  const { register, handleSubmit, watch, errors } = useForm();
-  const formData = watch();
+  const { register, handleSubmit, getValues, errors } = useForm();
   const [currentPage, setCurrentPage] = useState(0);
   const { size } = useWindowSize();
 
@@ -30,7 +29,7 @@ export default function Form() {
       rushed,
       // extraPrints,
       additionalComments,
-    } = formData;
+    } = getValues();
 
     await requestPawtrait({
       requesterName,

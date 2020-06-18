@@ -13,10 +13,16 @@ export const buttonWrapper = css`
   height: 4rem;
   ${isDesktop} {
     height: 6rem;
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
 export const formButton = (position) => css`
   width: 50%;
   margin-${position}: 0.5rem;
+
 `;
