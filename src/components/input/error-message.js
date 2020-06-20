@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/core';
-const error = css`
+const errorStyle = css`
   display: block;
   padding: 0.2rem 0 0.2rem 0.4rem;
   margin: 1rem 0 0 1rem;
@@ -10,5 +10,5 @@ const error = css`
 `;
 export default function ErrorMessage({ error }) {
   const visible = error?.message?.length > 0;
-  return visible ? <span css={error}>{error.message}</span> : null;
+  return visible ? <span css={errorStyle}>{error.message}</span> : null;
 }

@@ -21,7 +21,7 @@ const Input = forwardRef(
     const hasError = error?.message?.length > 0;
     const isCheckboxOrRadio = type === 'checkbox' || type === 'radio';
     const isTextarea = type === 'textarea';
-    const isRadio = type === 'radio';
+
     return (
       <label css={styles.label(isCheckboxOrRadio)}>
         <div css={styles.labelTitleContainer(isCheckboxOrRadio)}>

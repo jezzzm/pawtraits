@@ -101,6 +101,8 @@ export const requestPawtrait = async ({
     const post = await env.createEntry('pawtraitRequest', {
       fields,
     });
+
+    console.log(post);
   } catch (err) {
     console.log('failed :', err);
   }

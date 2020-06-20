@@ -1,17 +1,19 @@
 import React from 'react';
 import * as shared from '../../styles/shared.style';
 import * as styles from './button-wrapper.style.js';
+import Spinner from '../spinner';
+
 export default function ButtonWrapper({
   currentPage,
   numPages,
   onPrevious,
   onNext,
   onSubmit,
+  isLoading,
 }) {
   const hasPrevious = currentPage > 0;
   const hasSubmit = currentPage === numPages - 2;
-  const isSuccessPage = currentPage === numPages - 1;
-  return isSuccessPage ? null : (
+  return (
     <div css={styles.buttonWrapper}>
       {hasPrevious ? (
         <button
@@ -30,7 +32,7 @@ export default function ButtonWrapper({
           css={[shared.ctaButton(), styles.formButton('left')]}
           onClick={onSubmit}
         >
-          Submit
+          {isLoading ? <Spinner size="22px" /> : 'Submit'}
         </button>
       ) : (
         <button

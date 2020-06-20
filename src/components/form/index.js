@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
@@ -10,7 +11,8 @@ import ErrorMessage from '../input/error-message';
 import { requestPawtrait } from '../../services/contentful';
 import useWindowSize from '../../utils/use-window-size';
 import { hasAnyProperty } from '../../utils';
-import formState from '../../recoil/form';
+import formState, { initialFormState } from '../../recoil/form';
+import formOpenState from '../../recoil/form-open';
 
 const pageIndex = [
   [], //info page
@@ -29,7 +31,22 @@ const pricing = {
 };
 
 export default function Form() {
+  const data = useStaticQuery(graphql`
+    query FormQuery {
+      contentfulAsset(title: { eq: "Derek" }) {
+        fluid(maxHeight: 420, maxWidth: 360) {
+          sizes
+          src
+          srcSet
+          srcSetWebp
+        }
+        title
+      }
+    }
+  `);
+  const { title, fluid: img } = data.contentfulAsset;
   const [state, setState] = useRecoilState(formState);
+  const [formOpen, setFormOpen] = useRecoilState(formOpenState);
   const {
     register,
     handleSubmit,
@@ -40,6 +57,8 @@ export default function Form() {
   } = useForm({ defaultValues: state.data });
   const { twoPets } = watch(['twoPets']);
   const { size } = useWindowSize();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSuccessPage = state.currentPage === pageIndex.length - 1;
 
   const onSubmit = async () => {
     const {
@@ -55,6 +74,7 @@ export default function Form() {
       additionalComments,
     } = getValues();
 
+    setIsSubmitting(true);
     await requestPawtrait({
       requesterName,
       requesterEmail,
@@ -67,8 +87,9 @@ export default function Form() {
       rushed,
       additionalComments,
     });
+    setIsSubmitting(false);
+    next();
   };
-
   const next = async () => {
     console.log(state);
     console.log('before', errors);
@@ -108,6 +129,14 @@ export default function Form() {
   const onBlur = async (event) => {
     await trigger([event.target.name]);
   };
+
+  useEffect(() => {
+    // make sure we send back to page 0 if they are on the last page
+    // and hit the close button in header
+    if (!formOpen && isSuccessPage) {
+      setState(initialFormState);
+    }
+  }, [formOpen, state.currentPage, setState]);
 
   return (
     <Fragment>
@@ -245,19 +274,18 @@ export default function Form() {
                 🖼️
               </span>
             </h2>
-            <h3>What size should the Pawtrait be?</h3>
-            <Input
-              name="twoPets"
-              label="I'd like two pets in this Pawtrait"
-              type="checkbox"
-              onChange={onChange}
-              ref={register}
-            />
-            <div css={styles.priceTable}>
+            <div css={styles.price}>
+              <h3>What size should the Pawtrait be?</h3>
+              <Input
+                name="twoPets"
+                label="I'd like two pets in this Pawtrait"
+                type="checkbox"
+                onChange={onChange}
+                ref={register}
+              />
+
               {Object.entries(pricing).map(
                 ([paperSize, prices], index, array) => {
-                  const lastItem = index === array.length - 1;
-                  console.log(lastItem);
                   if ((twoPets && prices.two) || (!twoPets && prices.one)) {
                     return (
                       <Input
@@ -276,11 +304,12 @@ export default function Form() {
                       />
                     );
                   }
+                  return null;
                 }
               )}
               <ErrorMessage message={errors.size} />
-            </div>
-            {/* <Input
+
+              {/* <Input
               name="rushed"
               label="Do you need this rushed?"
               type="checkbox"
@@ -289,6 +318,7 @@ export default function Form() {
               onBlur={onBlur}
               ref={register}
             /> */}
+            </div>
             <Input
               name="additionalComments"
               label="Comments"
@@ -299,20 +329,49 @@ export default function Form() {
               ref={register}
             />
           </section>
-          <section css={styles.page(4)}>
-            <h2>Success!</h2>
-            <p>submitted, hear back via emiail in X</p>
+          <section css={[styles.page(4, true), styles.success]}>
+            <h1>Success!</h1>
+            <picture>
+              <source
+                srcSet={img.srcSetWebp}
+                sizes={img.sizes}
+                type="image/webp"
+              />
+              <source srcSet={img.srcSet} sizes={img.sizes} type="image/png" />
+              <img
+                alt={title}
+                src={img.src}
+                loading="lazy"
+                draggable={false /*make conditional mobile/desktop*/}
+              />
+            </picture>
+            <p>
+              Thanks for making your Pawtrait request. We will follow up within
+              24 hours to finalise your order.
+            </p>
+            <button
+              css={shared.ctaButton('info')}
+              onClick={() => {
+                setState(initialFormState);
+                setFormOpen(false);
+              }}
+            >
+              OK!
+            </button>
           </section>
         </form>
       </motion.div>
 
-      <ButtonWrapper
-        currentPage={state.currentPage}
-        onPrevious={previous}
-        onNext={next}
-        onSubmit={handleSubmit(onSubmit)}
-        numPages={pageIndex.length}
-      />
+      {!isSuccessPage && (
+        <ButtonWrapper
+          currentPage={state.currentPage}
+          onPrevious={previous}
+          onNext={next}
+          onSubmit={handleSubmit(onSubmit)}
+          numPages={pageIndex.length}
+          isLoading={isSubmitting}
+        />
+      )}
     </Fragment>
   );
 }

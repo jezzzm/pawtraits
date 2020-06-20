@@ -14,13 +14,13 @@ export const form = css`
   padding: 0;
 `;
 
-export const page = (index) => css`
+export const page = (index, isSuccessPage = false) => css`
   width: 100vw;
   padding: 0 1rem;
   position: absolute;
   overflow-y: auto;
   left: calc(${index} * 100vw);
-  bottom: 4rem;
+  bottom: ${isSuccessPage ? 0 : '4rem'};
   top: 0;
   ${isDesktop} {
     top: 6rem;
@@ -45,5 +45,27 @@ export const tips = css`
   }
   ${isDesktop} {
     padding: 2rem;
+  }
+`;
+
+export const price = css`
+  padding-top: 0.6rem;
+`;
+
+export const success = css`
+  text-align: center;
+  img {
+    display: block;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  p {
+    // line-height: 1.4;
+    font-size: 1.2em;
+  }
+  button {
+    margin: 4rem auto;
+    font-size: 2rem;
   }
 `;
