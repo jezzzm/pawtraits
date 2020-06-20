@@ -39,6 +39,7 @@ export const ctaButton = (type = 'success') => {
     &:disabled {
       background: #efeeee;
       box-shadow: none;
+      cursor: not-allowed;
     }
   `;
 };

@@ -65,6 +65,12 @@ export const info = css`
   }
 `;
 
-export const heading = css`
-  font-weight: 300;
+export const logo = css`
+  display: block;
+  height: 75%;
+  margin: 1rem 0;
+  img {
+    display: block;
+    height: 100%;
+  }
 `;

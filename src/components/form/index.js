@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
@@ -30,21 +29,9 @@ const pricing = {
   A2: { one: 1585, two: 1981 },
 };
 
-export default function Form() {
-  const data = useStaticQuery(graphql`
-    query FormQuery {
-      contentfulAsset(title: { eq: "Derek" }) {
-        fluid(maxHeight: 420, maxWidth: 360) {
-          sizes
-          src
-          srcSet
-          srcSetWebp
-        }
-        title
-      }
-    }
-  `);
-  const { title, fluid: img } = data.contentfulAsset;
+export default function Form({ derek }) {
+  const { title, fluid: img } = derek;
+
   const [state, setState] = useRecoilState(formState);
   const [formOpen, setFormOpen] = useRecoilState(formOpenState);
   const {

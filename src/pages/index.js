@@ -6,6 +6,7 @@ import Layout from '../components/layout';
 import LightboxWrapper from '../components/lightbox/wrapper';
 import Modal from '../components/modal';
 import Image from '../components/image';
+import Picture from '../components/picture';
 import Thumbnail from '../components/thumbnail';
 import useModalOpen from '../utils/use-modal-open';
 import useWindowSize from '../utils/use-window-size';
@@ -14,6 +15,7 @@ import lightboxOpen from '../recoil/lightbox-open';
 export default function Home({ data }) {
   const siteTitle = data.site.siteMetadata.title;
   const pawtraits = data.allContentfulPawtrait.nodes;
+  const { title, fluid: img } = data.bigLogo;
 
   const { isMobile } = useWindowSize();
 
@@ -28,7 +30,18 @@ export default function Home({ data }) {
   return (
     <Layout>
       <Helmet title={siteTitle} />
-      {isMobile && <h1 css={styles.mobileHeading}>Sydney Pawtraits</h1>}
+      <div css={styles.hero}>
+        <h1>
+          <span>Sydney's premier pet portraiture</span>
+        </h1>
+        <Picture
+          src={img.src}
+          srcSet={img.srcSet}
+          srcSetWebp={img.srcSetWebp}
+          alt={title}
+          sizes={img.sizes}
+        />
+      </div>
       <div css={styles.gallery}>
         {pawtraits.map(({ image, name }, index) => (
           <Thumbnail
@@ -71,6 +84,15 @@ export const pageQuery = graphql`
       siteMetadata {
         title
       }
+    }
+    bigLogo: contentfulAsset(title: { eq: "spLogoFull" }) {
+      fluid(maxHeight: 420, maxWidth: 360) {
+        sizes
+        src
+        srcSet
+        srcSetWebp
+      }
+      title
     }
     allContentfulPawtrait {
       nodes {
