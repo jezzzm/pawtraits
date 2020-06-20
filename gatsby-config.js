@@ -17,5 +17,9 @@ module.exports = {
         accessToken,
       },
     },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: { icon: 'src/images/sp_logo.jpg' },
+    },
   ],
 };

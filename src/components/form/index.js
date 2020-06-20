@@ -120,7 +120,7 @@ export default function Form({ derek }) {
     if (!formOpen && isSuccessPage) {
       setState(initialFormState);
     }
-  }, [formOpen, state.currentPage, setState]);
+  }, [formOpen, state.currentPage, setState, isSuccessPage]);
 
   return (
     <Fragment>

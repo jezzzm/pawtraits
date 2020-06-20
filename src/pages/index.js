@@ -9,15 +9,12 @@ import Image from '../components/image';
 import Picture from '../components/picture';
 import Thumbnail from '../components/thumbnail';
 import useModalOpen from '../utils/use-modal-open';
-import useWindowSize from '../utils/use-window-size';
 import lightboxOpen from '../recoil/lightbox-open';
 
 export default function Home({ data }) {
   const siteTitle = data.site.siteMetadata.title;
   const pawtraits = data.allContentfulPawtrait.nodes;
   const { title, fluid: img } = data.bigLogo;
-
-  const { isMobile } = useWindowSize();
 
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isOpenLightbox, setIsOpenLightbox] = useModalOpen(lightboxOpen);
