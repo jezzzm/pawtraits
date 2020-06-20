@@ -19,9 +19,28 @@ export const modal = css`
 export const header = css`
   align-self: center;
   margin-left: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
   ${isDesktop} {
     margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  button {
+    align-self: center;
+  }
+
+  picture {
+    display: block;
+    max-height: 80px;
+    height: 80px;
+    img {
+      display: block;
+      max-height: 100%;
+    }
   }
 `;
 

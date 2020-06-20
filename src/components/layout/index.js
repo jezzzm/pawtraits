@@ -31,7 +31,6 @@ export default function Layout({ children }) {
       }
     }
   `);
-  console.log(data);
 
   const [formIndex, setFormIndex] = useState(0);
   const [isOpenForm, setIsOpenForm] = useModalOpen(formOpen);

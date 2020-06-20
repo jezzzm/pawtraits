@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as styles from './modal.style';
 import * as shared from '../../styles/shared.style';
+import Picture from '../picture';
 import useWindowSize from '../../utils/use-window-size';
 
 export default function Modal({
@@ -12,6 +14,22 @@ export default function Modal({
   screens,
   Wrapper = ({ children }) => <div>{children}</div>,
 }) {
+  const data = useStaticQuery(graphql`
+    query ModalLogoQuery {
+      logo: contentfulAsset(title: { eq: "spLogo" }) {
+        fluid(maxWidth: 200) {
+          sizes
+          src
+          srcSet
+          srcSetWebp
+        }
+        title
+      }
+    }
+  `);
+
+  const { title, fluid: img } = data.logo;
+
   const { size } = useWindowSize();
   const content =
     screens.length && typeof screens === 'object' ? screens : [screens];
@@ -54,6 +72,13 @@ export default function Modal({
             >
               Close
             </button>
+            <Picture
+              src={img.src}
+              srcSet={img.srcSet}
+              srcSetWebp={img.srcSetWebp}
+              alt={title}
+              sizes={img.sizes}
+            />
           </div>
           <Wrapper next={next} previous={previous} width={size.width}>
             {content[index]}
