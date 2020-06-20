@@ -36,6 +36,10 @@ export const ctaButton = (type = 'success') => {
     &:hover {
       box-shadow: 0 0 rgba(0, 0, 0, 0.9);
     }
+    &:disabled {
+      background: #efeeee;
+      box-shadow: none;
+    }
   `;
 };
 

@@ -91,11 +91,8 @@ export default function Form() {
     next();
   };
   const next = async () => {
-    console.log(state);
-    console.log('before', errors);
     await trigger(pageIndex[state.currentPage]);
     const stepErrors = hasAnyProperty(errors, pageIndex[state.currentPage]);
-    console.log('after', errors);
     if (!stepErrors) {
       setState({ ...state, currentPage: state.currentPage + 1 });
     }
@@ -367,6 +364,7 @@ export default function Form() {
           currentPage={state.currentPage}
           onPrevious={previous}
           onNext={next}
+          disableProgress={hasAnyProperty(errors, pageIndex[state.currentPage])}
           onSubmit={handleSubmit(onSubmit)}
           numPages={pageIndex.length}
           isLoading={isSubmitting}

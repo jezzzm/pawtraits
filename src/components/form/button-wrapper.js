@@ -10,6 +10,7 @@ export default function ButtonWrapper({
   onNext,
   onSubmit,
   isLoading,
+  disableProgress,
 }) {
   const hasPrevious = currentPage > 0;
   const hasSubmit = currentPage === numPages - 2;
@@ -31,6 +32,7 @@ export default function ButtonWrapper({
           type="submit"
           css={[shared.ctaButton(), styles.formButton('left')]}
           onClick={onSubmit}
+          disabled={disableProgress}
         >
           {isLoading ? <Spinner size="22px" /> : 'Submit'}
         </button>
@@ -39,6 +41,7 @@ export default function ButtonWrapper({
           type="button"
           onClick={onNext}
           css={[shared.ctaButton('successLight'), styles.formButton('left')]}
+          disabled={disableProgress}
         >
           Next
         </button>
