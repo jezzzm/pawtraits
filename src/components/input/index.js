@@ -11,6 +11,7 @@ const Input = forwardRef(
       error = '',
       type = 'input',
       onChange,
+      onBlur,
     },
     ref
   ) => {
@@ -28,6 +29,7 @@ const Input = forwardRef(
             inputref={ref}
             placeholder={placeholder}
             onChange={onChange}
+            onBlur={onBlur}
             css={styles.input({ hasError, isTextarea: true })}
             rows={3}
           />
@@ -38,6 +40,7 @@ const Input = forwardRef(
             type={type}
             placeholder={placeholder}
             onChange={onChange}
+            onBlur={onBlur}
             css={styles.input({ hasError, isCheckbox })}
           />
         )}

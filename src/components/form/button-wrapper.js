@@ -34,7 +34,7 @@ export default function ButtonWrapper({
         <button
           type="button"
           onClick={onNext}
-          css={[shared.ctaButton(), styles.formButton('left')]}
+          css={[shared.ctaButton('successLight'), styles.formButton('left')]}
         >
           Next
         </button>

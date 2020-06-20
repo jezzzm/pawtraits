@@ -48,6 +48,12 @@ export const buttonContainer = css`
     align-items: start;
     margin-top: 1.2rem;
   }
+
+  ${isDesktop} {
+    button {
+      padding: 0.8rem 1.8rem;
+    }
+  }
 `;
 
 export const info = css`
@@ -55,7 +61,7 @@ export const info = css`
   padding: 0.4rem 1.2rem;
   text-decoration: none;
   ${isDesktop} {
-    padding: 0.6rem 1.8rem;
+    padding: 0.8rem 1.8rem;
   }
 `;
 

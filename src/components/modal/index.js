@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as styles from './modal.style';
 import useWindowSize from '../../utils/use-window-size';
 
@@ -35,20 +36,26 @@ export default function Modal({
   }, [setIsOpen]);
 
   return (
-    isOpen && (
-      <div
-        css={styles.modal}
-        style={{ height: size.height, width: size.width }}
-      >
-        <div css={styles.header}>
-          <button onClick={() => setIsOpen(false)} css={styles.close}>
-            Close
-          </button>
-        </div>
-        <Wrapper next={next} previous={previous} width={size.width}>
-          {content[index]}
-        </Wrapper>
-      </div>
-    )
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ y: size.height, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: size.height, opacity: 0 }}
+          transition={{ damping: 500 }}
+          css={styles.modal}
+          style={{ height: size.height, width: size.width }}
+        >
+          <div css={styles.header}>
+            <button onClick={() => setIsOpen(false)} css={styles.close}>
+              Close
+            </button>
+          </div>
+          <Wrapper next={next} previous={previous} width={size.width}>
+            {content[index]}
+          </Wrapper>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

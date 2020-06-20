@@ -105,6 +105,11 @@ export default function Form() {
     <Fragment>
       <motion.div
         animate={{ x: -1 * currentPage * size.width }}
+        transition={{
+          type: 'spring',
+          stiffness: 500,
+          damping: 200,
+        }}
         css={[shared.modalContentScrollable, styles.wrapper(3)]}
       >
         <form onSubmit={handleSubmit(onSubmit)} css={styles.form}>
@@ -142,7 +147,11 @@ export default function Form() {
               onChange={onChange}
               ref={register({
                 required: 'Your phone number is required',
-                pattern: /^(?:\+?61|0)[2-478](?:[ -]?[0-9]){8}$/,
+                pattern: {
+                  value: /^(?:\+?61|0)[2-478](?:[ -]?[0-9]){8}$/,
+                  message:
+                    'Please enter a valid Australian landline or mobile phone number',
+                },
               })}
             />
           </div>
@@ -177,9 +186,27 @@ export default function Form() {
               onChange={onChange}
               ref={register}
             />
+            <div css={styles.tips}>
+              <h4>
+                Photo Tips{' '}
+                <span role="img" aria-label="lightbulb image">
+                  💡
+                </span>
+              </h4>
+              <ul>
+                <li>
+                  A high resolution image is preferred (no larger than 10mb)
+                </li>
+                <li>Make sure your pet's head is in focus</li>
+                <li>
+                  The photo should have adequate lighting: not washed out, not
+                  too dark
+                </li>
+              </ul>
+            </div>
             <Input
               name="referenceImage"
-              label="Reference Image"
+              label="Reference Photo"
               type="file"
               onChange={onChange}
               ref={register}

@@ -10,12 +10,13 @@ export const input = ({
   border: 1px solid #999;
   border-radius: 0.4rem;
   ${isTextarea && `resize: vertical; overflow: hidden;`}
-  ${hasError ? `color: red;` : undefined}
 `;
 export const error = css`
   display: block;
-  padding-top: 0.6rem;
-  color: red;
+  padding: 0.6rem 0 0.2rem;
+  line-height: 1.4;
+  border-bottom: 3px solid #ffc7d1;
+  color: #ff94a7;
 `;
 export const text = (isCheckbox) => css`
   display: ${isCheckbox ? 'inline' : 'block'};

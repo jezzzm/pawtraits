@@ -3,23 +3,30 @@ import { isDesktop } from '../utils/breakpoints';
 
 export const ctaButton = (type = 'success') => {
   let bgColor;
+  let color;
   switch (type) {
     case 'info':
-      bgColor = `#E396CB`;
+      bgColor = `#FFF5C7`;
+      color = '#222';
+      break;
+    case 'successLight':
+      bgColor = '#edffc7';
+      color = '#222';
       break;
     case 'success':
     default:
-      bgColor = `#268e46`;
+      bgColor = `#D1FFC7`;
+      color = '#222';
   }
+
   return css`
     background: ${bgColor};
     border: 0;
     border-radius: 0.4rem;
-    color: white;
+    color: ${color};
     padding: 0.4rem 1.2rem;
-    ${isDesktop} {
-      padding: 0.6rem 1.8rem;
-    }
+    font-family: Rubik;
+    font-weight: 400;
   `;
 };
 
