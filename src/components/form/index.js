@@ -6,6 +6,7 @@ import * as styles from './form.style';
 import * as shared from '../../styles/shared.style';
 import ButtonWrapper from './button-wrapper';
 import Input from '../input';
+import ErrorMessage from '../input/error-message';
 import { requestPawtrait } from '../../services/contentful';
 import useWindowSize from '../../utils/use-window-size';
 import { hasAnyProperty } from '../../utils';
@@ -15,9 +16,17 @@ const pageIndex = [
   [], //info page
   ['requesterName', 'requesterEmail', 'requesterPhone'], //human
   ['petName', 'breed', 'description', 'referenceImage'], //pet
-  ['rushed', 'additionalComments'], // artwork
+  ['size', 'additionalComments'], // artwork
   [], //success message
 ];
+
+const pricing = {
+  A6: { one: 169 },
+  A5: { one: 296, two: 370 },
+  A4: { one: 518, two: 647 },
+  A3: { one: 906, two: 1132 },
+  A2: { one: 1585, two: 1981 },
+};
 
 export default function Form() {
   const [state, setState] = useRecoilState(formState);
@@ -25,9 +34,11 @@ export default function Form() {
     register,
     handleSubmit,
     getValues,
+    watch,
     errors,
-    triggerValidation,
+    trigger,
   } = useForm({ defaultValues: state.data });
+  const { twoPets } = watch(['twoPets']);
   const { size } = useWindowSize();
 
   const onSubmit = async () => {
@@ -61,7 +72,7 @@ export default function Form() {
   const next = async () => {
     console.log(state);
     console.log('before', errors);
-    await triggerValidation(pageIndex[state.currentPage]);
+    await trigger(pageIndex[state.currentPage]);
     const stepErrors = hasAnyProperty(errors, pageIndex[state.currentPage]);
     console.log('after', errors);
     if (!stepErrors) {
@@ -95,7 +106,7 @@ export default function Form() {
   };
 
   const onBlur = async (event) => {
-    await triggerValidation([event.target.name]);
+    await trigger([event.target.name]);
   };
 
   return (
@@ -107,7 +118,7 @@ export default function Form() {
           stiffness: 500,
           damping: 200,
         }}
-        css={[shared.modalContentScrollable, styles.wrapper(3)]}
+        css={[shared.modalContentScrollable, styles.wrapper(pageIndex.length)]}
       >
         <form onSubmit={handleSubmit(onSubmit)} css={styles.form}>
           <section css={styles.page(0)}>
@@ -234,16 +245,42 @@ export default function Form() {
                 🖼️
               </span>
             </h2>
+            <h3>What size should the Pawtrait be?</h3>
             <Input
-              name="size"
-              label="What size should this Pawtrait be?"
-              type="radio"
-              error={errors.size}
+              name="twoPets"
+              label="I'd like two pets in this Pawtrait"
+              type="checkbox"
               onChange={onChange}
-              onBlur={onBlur}
               ref={register}
             />
-            <Input
+            <div css={styles.priceTable}>
+              {Object.entries(pricing).map(
+                ([paperSize, prices], index, array) => {
+                  const lastItem = index === array.length - 1;
+                  console.log(lastItem);
+                  if ((twoPets && prices.two) || (!twoPets && prices.one)) {
+                    return (
+                      <Input
+                        key={paperSize}
+                        childKey={paperSize}
+                        name="size"
+                        label={`${paperSize}: $${
+                          twoPets ? prices.two : prices.one
+                        }`}
+                        type="radio"
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        ref={register({
+                          required: 'You must choose a Pawtrait size',
+                        })}
+                      />
+                    );
+                  }
+                }
+              )}
+              <ErrorMessage message={errors.size} />
+            </div>
+            {/* <Input
               name="rushed"
               label="Do you need this rushed?"
               type="checkbox"
@@ -251,7 +288,7 @@ export default function Form() {
               onChange={onChange}
               onBlur={onBlur}
               ref={register}
-            />
+            /> */}
             <Input
               name="additionalComments"
               label="Comments"
@@ -274,6 +311,7 @@ export default function Form() {
         onPrevious={previous}
         onNext={next}
         onSubmit={handleSubmit(onSubmit)}
+        numPages={pageIndex.length}
       />
     </Fragment>
   );

@@ -3,13 +3,15 @@ import * as shared from '../../styles/shared.style';
 import * as styles from './button-wrapper.style.js';
 export default function ButtonWrapper({
   currentPage,
+  numPages,
   onPrevious,
   onNext,
   onSubmit,
 }) {
   const hasPrevious = currentPage > 0;
-  const hasSubmit = currentPage === 2;
-  return (
+  const hasSubmit = currentPage === numPages - 2;
+  const isSuccessPage = currentPage === numPages - 1;
+  return isSuccessPage ? null : (
     <div css={styles.buttonWrapper}>
       {hasPrevious ? (
         <button

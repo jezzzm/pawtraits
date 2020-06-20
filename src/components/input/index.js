@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import Textarea from 'react-autosize-textarea';
 import * as styles from './input.style';
+import ErrorMessage from './error-message';
 
 const Input = forwardRef(
   (
@@ -13,20 +14,23 @@ const Input = forwardRef(
       onChange,
       onBlur,
       required = false,
+      childKey = undefined,
     },
     ref
   ) => {
     const hasError = error?.message?.length > 0;
-    const isCheckbox = type === 'checkbox';
+    const isCheckboxOrRadio = type === 'checkbox' || type === 'radio';
     const isTextarea = type === 'textarea';
+    const isRadio = type === 'radio';
     return (
-      <label css={styles.label}>
-        <div css={styles.labelTitleContainer}>
-          <h4 css={styles.text(isCheckbox)}>{label}</h4>
+      <label css={styles.label(isCheckboxOrRadio)}>
+        <div css={styles.labelTitleContainer(isCheckboxOrRadio)}>
+          <h4 css={styles.text(isCheckboxOrRadio)}>{label}</h4>
           {required && <span css={styles.required(hasError)}>Required</span>}
         </div>
         {isTextarea ? (
           <Textarea
+            key={childKey ? `${childKey}-input` : undefined}
             name={name}
             /* needs update to dep to prevent warning in console */
             /* https://github.com/buildo/react-autosize-textarea/pull/142 */
@@ -39,16 +43,17 @@ const Input = forwardRef(
           />
         ) : (
           <input
+            key={childKey ? `${childKey}-input` : undefined}
             name={name}
             ref={ref}
             type={type}
             placeholder={placeholder}
             onChange={onChange}
             onBlur={onBlur}
-            css={styles.input({ hasError, isCheckbox })}
+            css={styles.input({ hasError, isCheckboxOrRadio })}
           />
         )}
-        {hasError && <span css={styles.error}>{error.message}</span>}
+        <ErrorMessage error={error} />
       </label>
     );
   }

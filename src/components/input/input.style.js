@@ -2,38 +2,42 @@ import { css } from '@emotion/core';
 
 export const input = ({
   hasError,
-  isCheckbox = false,
   isTextarea = false,
+  isCheckboxOrRadio = false,
 }) => css`
   padding: 0.6rem 1rem;
-  ${!isCheckbox ? `width: 100%` : `margin-left: 0.6rem`};
+  ${isCheckboxOrRadio ? `margin-left: 0.6rem` : `width: 100%`};
   border: 1px solid #999;
   border-radius: 0.4rem;
   ${isTextarea && `resize: vertical; overflow: hidden;`}
 `;
-export const error = css`
-  display: block;
-  padding: 0.2rem 0 0.2rem 0.4rem;
-  margin: 1rem 0 0 1rem;
-  line-height: 1.4;
-  border-left: 3px solid #ffc7d1;
-  color: #ff94a7;
-`;
-export const text = (isCheckbox) => css`
-  display: ${isCheckbox ? 'inline' : 'block'};
+
+export const text = (isCheckboxOrRadio) => css`
+  display: ${isCheckboxOrRadio ? 'inline' : 'block'};
   margin: 0.6rem 0;
   font-weight: 400;
 `;
-export const label = css`
-  display: block;
-  margin-bottom: 2.4rem;
-`;
+export const label = (isCheckboxOrRadio) => css`
+margin-bottom: 2.4rem;
+${
+  isCheckboxOrRadio
+    ? css`
+        display: flex;
+      `
+    : css`
+        display: block;
+      `
+}
+}`;
 
-export const labelTitleContainer = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+export const labelTitleContainer = (isCheckboxOrRadio) => css`
+  ${!isCheckboxOrRadio &&
+  css`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  `}
 `;
 
 export const required = (hasError) => css`

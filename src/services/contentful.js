@@ -15,6 +15,7 @@ export const requestPawtrait = async ({
   rushed,
   extraPrints,
   additionalComments = undefined,
+  quotedPrice,
   size,
 }) => {
   try {
@@ -90,6 +91,9 @@ export const requestPawtrait = async ({
       },
       additionalComments: {
         'en-US': additionalComments,
+      },
+      quotedPrice: {
+        'en-US': quotedPrice,
       },
       ...newAsset,
     };

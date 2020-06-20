@@ -16,6 +16,7 @@ const formState = atom({
       rushed: false,
       additionalComments: '',
       size: '',
+      twoPets: false,
     },
     currentPage: 0,
   },
