@@ -14,7 +14,7 @@ import formState, { initialFormState } from '../../recoil/form';
 import formOpenState from '../../recoil/form-open';
 
 const pageIndex = [
-  [], //info page
+  // [], //info page to be completed
   ['requesterName', 'requesterEmail', 'requesterPhone'], //human
   ['petName', 'breed', 'description', 'referenceImage'], //pet
   ['size', 'additionalComments'], // artwork
@@ -134,10 +134,10 @@ export default function Form({ derek }) {
         css={[shared.modalContentScrollable, styles.wrapper(pageIndex.length)]}
       >
         <form onSubmit={handleSubmit(onSubmit)} css={styles.form}>
-          <section css={styles.page(0)}>
+          {/* <section css={styles.page(0)}>
             <h2>Ordering a Pawtrait</h2>
-          </section>
-          <section css={styles.page(1)}>
+          </section> */}
+          <section css={styles.page(0)}>
             <h2>
               About You{' '}
               <span role="img" aria-label="human emoji">
@@ -187,7 +187,7 @@ export default function Form({ derek }) {
               })}
             />
           </section>
-          <section css={styles.page(2)}>
+          <section css={styles.page(1)}>
             <h2>
               About Your Pet{' '}
               <span role="img" aria-label="pet emoji">
@@ -251,7 +251,7 @@ export default function Form({ derek }) {
               error={errors.referenceImage}
             />
           </section>
-          <section css={styles.page(3)}>
+          <section css={styles.page(2)}>
             <h2>
               About the Pawtrait{' '}
               <span role="img" aria-label="artwork image">
@@ -313,7 +313,7 @@ export default function Form({ derek }) {
               ref={register}
             />
           </section>
-          <section css={[styles.page(4, true), styles.success]}>
+          <section css={[styles.page(3, true), styles.success]}>
             <h1>Success!</h1>
             <picture>
               <source
@@ -340,7 +340,7 @@ export default function Form({ derek }) {
                 setFormOpen(false);
               }}
             >
-              OK!
+              Okay!
             </button>
           </section>
         </form>

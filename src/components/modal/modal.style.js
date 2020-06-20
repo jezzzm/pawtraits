@@ -25,21 +25,25 @@ export const header = css`
   justify-content: space-between;
   align-items: center;
 
-  ${isDesktop} {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
   button {
     align-self: center;
   }
 
   picture {
     display: block;
-    max-height: 80px;
-    height: 80px;
+    max-height: 45px;
+    height: 45px;
     img {
       display: block;
       max-height: 100%;
+    }
+  }
+  ${isDesktop} {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    picture {
+      max-height: 80px;
+      height: 80px;
     }
   }
 `;
