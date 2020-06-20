@@ -25,7 +25,7 @@ export const page = (index) => css`
   ${isDesktop} {
     top: 6rem;
   }
-  * {
+  > * {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -36,9 +36,6 @@ export const tips = css`
   background: #fff5c7;
   padding: 1rem;
   margin-bottom: 2.4rem;
-  border-radius: 1rem;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-
   ul {
     padding-left: 1.1rem;
   }

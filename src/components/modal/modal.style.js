@@ -11,7 +11,6 @@ export const modal = css`
   background: white;
   display: grid;
   grid-template-rows: 4rem auto;
-
   ${isDesktop} {
     grid-template-rows: 6rem auto;
   }

@@ -27,6 +27,12 @@ export const ctaButton = (type = 'success') => {
     padding: 0.4rem 1.2rem;
     font-family: Rubik;
     font-weight: 400;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.9);
+    transition: 0.08s;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 0 rgba(0, 0, 0, 0.9);
+    }
   `;
 };
 

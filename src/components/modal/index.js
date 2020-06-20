@@ -39,9 +39,9 @@ export default function Modal({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ y: size.height, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: size.height, opacity: 0 }}
+          initial={{ y: size.height }}
+          animate={{ y: 0 }}
+          exit={{ y: size.height }}
           transition={{ damping: 500 }}
           css={styles.modal}
           style={{ height: size.height, width: size.width }}

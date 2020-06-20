@@ -17,6 +17,12 @@ const hasAnyProperty = (obj, properties) => {
   return propertyArray.some((property) => Object.keys(obj).includes(property));
 };
 
+const pageIndex = {
+  0: ['requesterName', 'requesterEmail', 'requesterPhone'],
+  1: ['petName', 'breed', 'description', 'referenceImage'],
+  2: ['rushed', 'additionalComments'],
+};
+
 export default function Form() {
   const [state, setState] = useRecoilState(formState);
   const {
@@ -58,31 +64,9 @@ export default function Form() {
   };
 
   const next = async () => {
-    await triggerValidation();
+    await triggerValidation(pageIndex[currentPage]);
 
-    let stepErrors;
-    switch (currentPage) {
-      case 0:
-        stepErrors = hasAnyProperty(errors, [
-          'requesterName',
-          'requesterEmail',
-          'requesterPhone',
-        ]);
-        break;
-      case 1:
-        stepErrors = hasAnyProperty(errors, [
-          'petName',
-          'breed',
-          'description',
-          'referenceImage',
-        ]);
-        break;
-      case 2:
-        stepErrors = hasAnyProperty(errors, ['rushed', 'additionalComments']);
-        break;
-      default:
-        stepErrors = false;
-    }
+    const stepErrors = hasAnyProperty(errors, pageIndex[currentPage]);
     console.log('stepErrors', stepErrors);
 
     if (!stepErrors) {
@@ -95,10 +79,17 @@ export default function Form() {
   };
 
   const onChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.value,
-    });
+    // we cannot keep uploaded files in state, let browser handle
+    if (event.target.type !== 'file') {
+      setState({
+        ...state,
+        [event.target.name]: event.target.value,
+      });
+    }
+  };
+
+  const onBlur = async (event) => {
+    await triggerValidation(event.target.name);
   };
 
   return (
@@ -126,6 +117,7 @@ export default function Form() {
               placeholder="Charlie Brown"
               error={errors.requesterName}
               onChange={onChange}
+              onBlur={onBlur}
               ref={register({ required: 'Your name is required' })}
             />
             <Input
@@ -134,6 +126,7 @@ export default function Form() {
               placeholder="charlie@brown.com"
               error={errors.requesterEmail}
               onChange={onChange}
+              onBlur={onBlur}
               ref={register({
                 required: 'Your email is required',
                 pattern: /^\w[\w.-]*@([\w-]+\.)+[\w-]+$/,
@@ -145,6 +138,7 @@ export default function Form() {
               placeholder="0400 000 000"
               error={errors.requesterPhone}
               onChange={onChange}
+              onBlur={onBlur}
               ref={register({
                 required: 'Your phone number is required',
                 pattern: {
@@ -167,6 +161,7 @@ export default function Form() {
               label="Name"
               placeholder="Snoopy"
               onChange={onChange}
+              onBlur={onBlur}
               ref={register({ required: "Pet's name is required" })}
               error={errors.petName}
             />
@@ -175,6 +170,7 @@ export default function Form() {
               label="Breed"
               placeholder="Beagle"
               onChange={onChange}
+              onBlur={onBlur}
               ref={register({ required: "Pet's breed is required" })}
               error={errors.breed}
             />
@@ -184,6 +180,7 @@ export default function Form() {
               placeholder="Tell us a little bit about your pet so we can capture this in the Pawtrait!"
               type="textarea"
               onChange={onChange}
+              onBlur={onBlur}
               ref={register}
             />
             <div css={styles.tips}>
@@ -209,6 +206,7 @@ export default function Form() {
               label="Reference Photo"
               type="file"
               onChange={onChange}
+              onBlur={onBlur}
               ref={register}
               error={errors.referenceImage}
             />
@@ -226,6 +224,7 @@ export default function Form() {
               type="checkbox"
               error={errors.rushed}
               onChange={onChange}
+              onBlur={onBlur}
               ref={register}
             />
             <Input
@@ -234,6 +233,7 @@ export default function Form() {
               placeholder="Anything else you'd like to add?"
               type="textarea"
               onChange={onChange}
+              onBlur={onBlur}
               ref={register}
             />
           </div>

@@ -20,7 +20,10 @@ const Input = forwardRef(
     const isTextarea = type === 'textarea';
     return (
       <label css={styles.label}>
-        <h4 css={styles.text(isCheckbox)}>{label}</h4>
+        <div css={styles.labelTitleContainer}>
+          <h4 css={styles.text(isCheckbox)}>{label}</h4>
+          <span css={styles.required(hasError)}>Required</span>
+        </div>
         {isTextarea ? (
           <Textarea
             name={name}
