@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
@@ -6,22 +6,18 @@ import * as styles from './form.style';
 import * as shared from '../../styles/shared.style';
 import ButtonWrapper from './button-wrapper';
 import Input from '../input';
-import { requestPawtrait } from '../../services/contenful';
+import { requestPawtrait } from '../../services/contentful';
 import useWindowSize from '../../utils/use-window-size';
+import { hasAnyProperty } from '../../utils';
 import formState from '../../recoil/form';
 
-const hasAnyProperty = (obj, properties) => {
-  const propertyArray =
-    typeof properties === 'string' ? [properties] : properties;
-
-  return propertyArray.some((property) => Object.keys(obj).includes(property));
-};
-
-const pageIndex = {
-  0: ['requesterName', 'requesterEmail', 'requesterPhone'],
-  1: ['petName', 'breed', 'description', 'referenceImage'],
-  2: ['rushed', 'additionalComments'],
-};
+const pageIndex = [
+  [], //info page
+  ['requesterName', 'requesterEmail', 'requesterPhone'], //human
+  ['petName', 'breed', 'description', 'referenceImage'], //pet
+  ['rushed', 'additionalComments'], // artwork
+  [], //success message
+];
 
 export default function Form() {
   const [state, setState] = useRecoilState(formState);
@@ -31,8 +27,7 @@ export default function Form() {
     getValues,
     errors,
     triggerValidation,
-  } = useForm({ defaultValues: state });
-  const [currentPage, setCurrentPage] = useState(0);
+  } = useForm({ defaultValues: state.data });
   const { size } = useWindowSize();
 
   const onSubmit = async () => {
@@ -44,8 +39,8 @@ export default function Form() {
       breed,
       description,
       referenceImage,
+      size,
       rushed,
-      // extraPrints,
       additionalComments,
     } = getValues();
 
@@ -57,25 +52,25 @@ export default function Form() {
       breed,
       description,
       referenceImage,
+      size,
       rushed,
-      // extraPrints,
       additionalComments,
     });
   };
 
   const next = async () => {
-    await triggerValidation(pageIndex[currentPage]);
-
-    const stepErrors = hasAnyProperty(errors, pageIndex[currentPage]);
-    console.log('stepErrors', stepErrors);
-
+    console.log(state);
+    console.log('before', errors);
+    await triggerValidation(pageIndex[state.currentPage]);
+    const stepErrors = hasAnyProperty(errors, pageIndex[state.currentPage]);
+    console.log('after', errors);
     if (!stepErrors) {
-      setCurrentPage((current) => current + 1);
+      setState({ ...state, currentPage: state.currentPage + 1 });
     }
   };
 
   const previous = () => {
-    setCurrentPage((current) => current - 1);
+    setState({ ...state, currentPage: state.currentPage - 1 });
   };
 
   const onChange = (event) => {
@@ -83,19 +78,30 @@ export default function Form() {
     if (event.target.type !== 'file') {
       setState({
         ...state,
-        [event.target.name]: event.target.value,
+        data: {
+          ...state.data,
+          [event.target.name]: event.target.value,
+        },
+      });
+    } else {
+      setState({
+        ...state,
+        data: {
+          ...state.data,
+          [event.target.name]: event.target.files[0],
+        },
       });
     }
   };
 
   const onBlur = async (event) => {
-    await triggerValidation(event.target.name);
+    await triggerValidation([event.target.name]);
   };
 
   return (
     <Fragment>
       <motion.div
-        animate={{ x: -1 * currentPage * size.width }}
+        animate={{ x: -1 * state.currentPage * size.width }}
         transition={{
           type: 'spring',
           stiffness: 500,
@@ -104,7 +110,10 @@ export default function Form() {
         css={[shared.modalContentScrollable, styles.wrapper(3)]}
       >
         <form onSubmit={handleSubmit(onSubmit)} css={styles.form}>
-          <div css={styles.page(0)}>
+          <section css={styles.page(0)}>
+            <h2>Ordering a Pawtrait</h2>
+          </section>
+          <section css={styles.page(1)}>
             <h2>
               About You{' '}
               <span role="img" aria-label="human emoji">
@@ -119,6 +128,7 @@ export default function Form() {
               onChange={onChange}
               onBlur={onBlur}
               ref={register({ required: 'Your name is required' })}
+              required
             />
             <Input
               name="requesterEmail"
@@ -129,8 +139,13 @@ export default function Form() {
               onBlur={onBlur}
               ref={register({
                 required: 'Your email is required',
-                pattern: /^\w[\w.-]*@([\w-]+\.)+[\w-]+$/,
+                pattern: {
+                  value: /^\w[\w.-]*@([\w-]+\.)+[\w-]+$/,
+                  message:
+                    'You must enter a valid email. Are you missing an @ or . ?',
+                },
               })}
+              required
             />
             <Input
               name="requesterPhone"
@@ -140,16 +155,15 @@ export default function Form() {
               onChange={onChange}
               onBlur={onBlur}
               ref={register({
-                required: 'Your phone number is required',
                 pattern: {
                   value: /^(?:\+?61|0)[2-478](?:[ -]?[0-9]){8}$/,
                   message:
-                    'Please enter a valid Australian landline or mobile phone number',
+                    'Please enter a valid Australian landline with area code, or mobile phone number',
                 },
               })}
             />
-          </div>
-          <div css={styles.page(1)}>
+          </section>
+          <section css={styles.page(2)}>
             <h2>
               About Your Pet{' '}
               <span role="img" aria-label="pet emoji">
@@ -164,6 +178,7 @@ export default function Form() {
               onBlur={onBlur}
               ref={register({ required: "Pet's name is required" })}
               error={errors.petName}
+              required
             />
             <Input
               name="breed"
@@ -173,6 +188,7 @@ export default function Form() {
               onBlur={onBlur}
               ref={register({ required: "Pet's breed is required" })}
               error={errors.breed}
+              required
             />
             <Input
               name="description"
@@ -183,7 +199,7 @@ export default function Form() {
               onBlur={onBlur}
               ref={register}
             />
-            <div css={styles.tips}>
+            <aside css={styles.tips}>
               <h4>
                 Photo Tips{' '}
                 <span role="img" aria-label="lightbulb image">
@@ -200,7 +216,7 @@ export default function Form() {
                   too dark
                 </li>
               </ul>
-            </div>
+            </aside>
             <Input
               name="referenceImage"
               label="Reference Photo"
@@ -210,14 +226,23 @@ export default function Form() {
               ref={register}
               error={errors.referenceImage}
             />
-          </div>
-          <div css={styles.page(2)}>
+          </section>
+          <section css={styles.page(3)}>
             <h2>
-              Extras{' '}
-              <span role="img" aria-label="extras image">
-                💅
+              About the Pawtrait{' '}
+              <span role="img" aria-label="artwork image">
+                🖼️
               </span>
             </h2>
+            <Input
+              name="size"
+              label="What size should this Pawtrait be?"
+              type="radio"
+              error={errors.size}
+              onChange={onChange}
+              onBlur={onBlur}
+              ref={register}
+            />
             <Input
               name="rushed"
               label="Do you need this rushed?"
@@ -236,12 +261,16 @@ export default function Form() {
               onBlur={onBlur}
               ref={register}
             />
-          </div>
+          </section>
+          <section css={styles.page(4)}>
+            <h2>Success!</h2>
+            <p>submitted, hear back via emiail in X</p>
+          </section>
         </form>
       </motion.div>
 
       <ButtonWrapper
-        currentPage={currentPage}
+        currentPage={state.currentPage}
         onPrevious={previous}
         onNext={next}
         onSubmit={handleSubmit(onSubmit)}

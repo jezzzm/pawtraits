@@ -5,6 +5,9 @@ export const ctaButton = (type = 'success') => {
   let bgColor;
   let color;
   switch (type) {
+    case 'neutral':
+      bgColor = '#efeeee';
+      break;
     case 'info':
       bgColor = `#FFF5C7`;
       color = '#222';

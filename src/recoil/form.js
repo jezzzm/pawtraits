@@ -3,18 +3,21 @@ import { atom } from 'recoil';
 const formState = atom({
   key: 'formState',
   default: {
-    requesterName: '',
-    requesterEmail: '',
-    requesterPhone: '',
+    data: {
+      requesterName: '',
+      requesterEmail: '',
+      requesterPhone: '',
 
-    petName: '',
-    breed: '',
-    description: '',
-    // referenceImage must be uncontrolled
+      petName: '',
+      breed: '',
+      description: '',
+      // referenceImage must be uncontrolled
 
-    rushed: false,
-    additionalComments: '',
-    size: '',
+      rushed: false,
+      additionalComments: '',
+      size: '',
+    },
+    currentPage: 0,
   },
 });
 

@@ -27,12 +27,4 @@ export const header = css`
 
 export const close = css`
   z-index: 100;
-  padding: 0.4rem 1.2rem;
-
-  font-family: Rubik;
-  font-weight: 300;
-
-  background: #efeeee;
-  border-radius: 0.4rem;
-  border: 0;
 `;

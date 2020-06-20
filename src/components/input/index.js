@@ -12,6 +12,7 @@ const Input = forwardRef(
       type = 'input',
       onChange,
       onBlur,
+      required = false,
     },
     ref
   ) => {
@@ -22,7 +23,7 @@ const Input = forwardRef(
       <label css={styles.label}>
         <div css={styles.labelTitleContainer}>
           <h4 css={styles.text(isCheckbox)}>{label}</h4>
-          <span css={styles.required(hasError)}>Required</span>
+          {required && <span css={styles.required(hasError)}>Required</span>}
         </div>
         {isTextarea ? (
           <Textarea

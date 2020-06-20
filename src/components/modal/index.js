@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as styles from './modal.style';
+import * as shared from '../../styles/shared.style';
 import useWindowSize from '../../utils/use-window-size';
 
 export default function Modal({
@@ -47,7 +48,10 @@ export default function Modal({
           style={{ height: size.height, width: size.width }}
         >
           <div css={styles.header}>
-            <button onClick={() => setIsOpen(false)} css={styles.close}>
+            <button
+              onClick={() => setIsOpen(false)}
+              css={[styles.close, shared.ctaButton('neutral')]}
+            >
               Close
             </button>
           </div>
