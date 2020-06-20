@@ -70,3 +70,6 @@ public
 
 # ds store
 .DS_Store
+
+# vs code
+.vscode

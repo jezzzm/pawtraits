@@ -1,25 +1,23 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+import { Helmet } from 'react-helmet';
 import { useRecoilState } from 'recoil';
-import * as styles from './about.style';
-import * as shared from '../../styles/shared.style';
-import formOpen from '../../recoil/form-open';
-import aboutOpen from '../../recoil/about-open';
-import facebook from '../../../static/facebook.png';
-import instagram from '../../../static/instagram.png';
+import * as styles from '../styles/info.style';
+import * as shared from '../styles/shared.style';
+import Layout from '../components/layout';
+import formOpen from '../recoil/form-open';
+import facebook from '../../static/facebook.png';
+import instagram from '../../static/instagram.png';
 
-export default function About({ image }) {
-  const description = image.description;
-  const img = image.fluid;
+export default function Info({ data }) {
+  const siteTitle = data.site.siteMetadata.title;
+  const { description, fluid: img } = data.contentfulAsset;
 
   const [, setFormOpen] = useRecoilState(formOpen);
-  const [, setAboutOpen] = useRecoilState(aboutOpen);
 
-  const handleFormOpen = () => {
-    setAboutOpen(false);
-    setFormOpen(true);
-  };
   return (
-    <div css={shared.modalContentScrollable}>
+    <Layout>
+      <Helmet title={siteTitle} />
       <div css={[styles.inner, shared.modalInnerWrapper]}>
         <h1 css={styles.title}>More Information</h1>
         <img
@@ -58,7 +56,9 @@ export default function About({ image }) {
           </p>
           <button
             css={[shared.ctaButton(), styles.button]}
-            onClick={handleFormOpen}
+            onClick={() => {
+              setFormOpen(true);
+            }}
           >
             Get your own
           </button>
@@ -118,6 +118,28 @@ export default function About({ image }) {
         Copyright &copy; {new Date().getFullYear()} Sydney Pawtraits. All rights
         reserved.
       </p>
-    </div>
+    </Layout>
   );
 }
+
+export const pageQuery = graphql`
+  query AboutQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    contentfulAsset(title: { eq: "nicki" }) {
+      fluid(
+        cropFocus: TOP
+        maxHeight: 420
+        maxWidth: 360
+        resizingBehavior: CROP
+      ) {
+        sizes
+        src
+      }
+      description
+    }
+  }
+`;

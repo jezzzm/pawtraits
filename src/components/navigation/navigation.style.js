@@ -30,6 +30,12 @@ export const inner = css`
     max-width: 1280px;
     margin: 0 auto;
   }
+
+  a {
+    text-decoration: none;
+    font-family: Rubik;
+    font-weight: 300;
+  }
 `;
 
 export const buttonContainer = css`
@@ -42,11 +48,10 @@ export const buttonContainer = css`
   }
 `;
 
-export const about = css`
-  background: none;
-  border: 0;
+export const info = css`
   margin-right: 2rem;
   padding: 0.4rem 1.2rem;
+  text-decoration: none;
   ${isDesktop} {
     padding: 0.6rem 1.8rem;
   }

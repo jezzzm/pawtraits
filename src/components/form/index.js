@@ -8,16 +8,30 @@ import Input from '../input';
 import { requestPawtrait } from '../../services/contenful';
 import useWindowSize from '../../utils/use-window-size';
 
+const hasAnyProperty = (obj, properties) => {
+  const propertyArray =
+    typeof properties === 'string' ? [properties] : properties;
+  let hasProp = false;
+  propertyArray.forEach((property) => {
+    if (obj.hasOwnProperty(property)) {
+      hasProp = true;
+    }
+  });
+  return hasProp;
+};
+
 export default function Form() {
-  const { register, handleSubmit, getValues, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    errors,
+    triggerValidation,
+  } = useForm();
   const [currentPage, setCurrentPage] = useState(0);
   const { size } = useWindowSize();
 
   const onSubmit = async () => {
-    if (errors.length) {
-      console.log(errors);
-      return;
-    }
     const {
       requesterName,
       requesterEmail,
@@ -45,9 +59,35 @@ export default function Form() {
     });
   };
 
-  const next = () => {
-    console.log(errors);
-    if (!Object.keys(errors).length) {
+  const next = async () => {
+    await triggerValidation();
+
+    let stepErrors;
+    switch (currentPage) {
+      case 0:
+        stepErrors = hasAnyProperty(errors, [
+          'requesterName',
+          'requesterEmail',
+          'requesterPhone',
+        ]);
+        break;
+      case 1:
+        stepErrors = hasAnyProperty(errors, [
+          'petName',
+          'breed',
+          'description',
+          'referenceImage',
+        ]);
+        break;
+      case 2:
+        stepErrors = hasAnyProperty(errors, ['rushed', 'additionalComments']);
+        break;
+      default:
+        stepErrors = false;
+    }
+    console.log('stepErrors', stepErrors);
+
+    if (!stepErrors) {
       setCurrentPage((current) => current + 1);
     }
   };
