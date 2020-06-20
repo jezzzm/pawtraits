@@ -21,12 +21,13 @@ export const outer = css`
 export const inner = css`
   height: 100%;
   padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
   ${isMobile} {
     margin-bottom: 2rem;
+    align-items: baseline;
   }
   ${isDesktop} {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
     max-width: 1280px;
     margin: 0 auto;
@@ -47,6 +48,7 @@ export const buttonContainer = css`
     justify-content: space-between;
     align-items: start;
     margin-top: 1.2rem;
+    flex: 1;
   }
 
   ${isDesktop} {
@@ -56,11 +58,12 @@ export const buttonContainer = css`
   }
 `;
 
-export const info = css`
-  margin-right: 2rem;
+export const link = css`
   padding: 0.4rem 1.2rem;
   text-decoration: none;
+
   ${isDesktop} {
+    margin-right: 2rem;
     padding: 0.8rem 1.8rem;
   }
 `;
