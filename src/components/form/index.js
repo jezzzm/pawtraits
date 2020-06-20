@@ -1,33 +1,31 @@
 import React, { Fragment, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import * as styles from './form.style';
-import ButtonWrapper from './button-wrapper';
 import * as shared from '../../styles/shared.style';
+import ButtonWrapper from './button-wrapper';
 import Input from '../input';
 import { requestPawtrait } from '../../services/contenful';
 import useWindowSize from '../../utils/use-window-size';
+import formState from '../../recoil/form';
 
 const hasAnyProperty = (obj, properties) => {
   const propertyArray =
     typeof properties === 'string' ? [properties] : properties;
-  let hasProp = false;
-  propertyArray.forEach((property) => {
-    if (obj.hasOwnProperty(property)) {
-      hasProp = true;
-    }
-  });
-  return hasProp;
+
+  return propertyArray.some((property) => Object.keys(obj).includes(property));
 };
 
 export default function Form() {
+  const [state, setState] = useRecoilState(formState);
   const {
     register,
     handleSubmit,
     getValues,
     errors,
     triggerValidation,
-  } = useForm();
+  } = useForm({ defaultValues: state });
   const [currentPage, setCurrentPage] = useState(0);
   const { size } = useWindowSize();
 
@@ -96,6 +94,13 @@ export default function Form() {
     setCurrentPage((current) => current - 1);
   };
 
+  const onChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
     <Fragment>
       <motion.div
@@ -115,6 +120,7 @@ export default function Form() {
               label="Name"
               placeholder="Charlie Brown"
               error={errors.requesterName}
+              onChange={onChange}
               ref={register({ required: 'Your name is required' })}
             />
             <Input
@@ -122,6 +128,7 @@ export default function Form() {
               label="Email"
               placeholder="charlie@brown.com"
               error={errors.requesterEmail}
+              onChange={onChange}
               ref={register({
                 required: 'Your email is required',
                 pattern: /^\w[\w.-]*@([\w-]+\.)+[\w-]+$/,
@@ -132,6 +139,7 @@ export default function Form() {
               label="Best contact number"
               placeholder="0400 000 000"
               error={errors.requesterPhone}
+              onChange={onChange}
               ref={register({
                 required: 'Your phone number is required',
                 pattern: /^(?:\+?61|0)[2-478](?:[ -]?[0-9]){8}$/,
@@ -149,6 +157,7 @@ export default function Form() {
               name="petName"
               label="Name"
               placeholder="Snoopy"
+              onChange={onChange}
               ref={register({ required: "Pet's name is required" })}
               error={errors.petName}
             />
@@ -156,6 +165,7 @@ export default function Form() {
               name="breed"
               label="Breed"
               placeholder="Beagle"
+              onChange={onChange}
               ref={register({ required: "Pet's breed is required" })}
               error={errors.breed}
             />
@@ -164,12 +174,14 @@ export default function Form() {
               label="Description"
               placeholder="Tell us a little bit about your pet so we can capture this in the Pawtrait!"
               type="textarea"
+              onChange={onChange}
               ref={register}
             />
             <Input
               name="referenceImage"
               label="Reference Image"
               type="file"
+              onChange={onChange}
               ref={register}
               error={errors.referenceImage}
             />
@@ -186,6 +198,7 @@ export default function Form() {
               label="Do you need this rushed?"
               type="checkbox"
               error={errors.rushed}
+              onChange={onChange}
               ref={register}
             />
             <Input
@@ -193,6 +206,7 @@ export default function Form() {
               label="Comments"
               placeholder="Anything else you'd like to add?"
               type="textarea"
+              onChange={onChange}
               ref={register}
             />
           </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import * as styles from './lightbox.style';
 
@@ -23,6 +23,20 @@ export default function LightboxWrapper({ previous, next, width, children }) {
       previous();
     }
   };
+
+  useEffect(() => {
+    const keyListener = (event) => {
+      if (event.key === 'ArrowRight') {
+        next();
+      } else if (event.key === 'ArrowLeft') {
+        previous();
+      }
+    };
+
+    window.addEventListener('keydown', keyListener);
+
+    return () => window.removeEventListener('keydown', keyListener);
+  }, [previous, next]);
 
   return (
     <motion.div

@@ -18,15 +18,13 @@ export default function Layout({ children }) {
 
       {children}
 
-      {isOpenForm && (
-        <Modal
-          index={formIndex}
-          setIndex={setFormIndex}
-          isOpen={isOpenForm}
-          setIsOpen={setIsOpenForm}
-          screens={<Form />}
-        />
-      )}
+      <Modal
+        index={formIndex}
+        setIndex={setFormIndex}
+        isOpen={isOpenForm}
+        setIsOpen={setIsOpenForm}
+        screens={<Form />}
+      />
     </div>
   );
 }

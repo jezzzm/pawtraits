@@ -11,7 +11,7 @@ export default function Navigation() {
   const [, setFormOpen] = useRecoilState(formOpen);
 
   return (
-    <div css={styles.outer}>
+    <nav id="header" css={styles.outer}>
       <div css={styles.inner}>
         <Link to="/">
           <h2 css={styles.heading}>{isMobile ? 'SP' : 'Sydney Pawtraits'}</h2>
@@ -25,6 +25,6 @@ export default function Navigation() {
           </button>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

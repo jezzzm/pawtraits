@@ -6,11 +6,11 @@ const Input = forwardRef(
   (
     {
       name,
-      value,
       label = name,
       placeholder = name,
       error = '',
       type = 'input',
+      onChange,
     },
     ref
   ) => {
@@ -23,10 +23,11 @@ const Input = forwardRef(
         {isTextarea ? (
           <Textarea
             name={name}
-            /*needs update to dep to prevent warning in console */
+            /* needs update to dep to prevent warning in console */
+            /* https://github.com/buildo/react-autosize-textarea/pull/142 */
             inputref={ref}
-            defaultValue={value}
             placeholder={placeholder}
+            onChange={onChange}
             css={styles.input({ hasError, isTextarea: true })}
             rows={3}
           />
@@ -35,8 +36,8 @@ const Input = forwardRef(
             name={name}
             ref={ref}
             type={type}
-            defaultValue={value}
             placeholder={placeholder}
+            onChange={onChange}
             css={styles.input({ hasError, isCheckbox })}
           />
         )}

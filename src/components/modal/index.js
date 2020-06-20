@@ -24,11 +24,7 @@ export default function Modal({
 
   useEffect(() => {
     const keyListener = (event) => {
-      if (event.key === 'ArrowRight') {
-        next();
-      } else if (event.key === 'ArrowLeft') {
-        previous();
-      } else if (event.key === 'Escape') {
+      if (event.key === 'Escape') {
         setIsOpen(false);
       }
     };
@@ -36,7 +32,7 @@ export default function Modal({
     window.addEventListener('keydown', keyListener);
 
     return () => window.removeEventListener('keydown', keyListener);
-  }, [index, previous, next, setIsOpen]);
+  }, [setIsOpen]);
 
   return (
     isOpen && (

@@ -7,7 +7,7 @@ export const outer = css`
   width: 100%;
   background: white;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-  padding: 0 2rem;
+
   height: 6rem;
   ${isDesktop} {
     top: 0;
@@ -20,6 +20,7 @@ export const outer = css`
 
 export const inner = css`
   height: 100%;
+  padding: 0 1rem;
   ${isMobile} {
     margin-bottom: 2rem;
   }
@@ -29,6 +30,7 @@ export const inner = css`
     align-items: center;
     max-width: 1280px;
     margin: 0 auto;
+    padding: 0 2rem;
   }
 
   a {
