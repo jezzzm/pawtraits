@@ -1,6 +1,6 @@
 import React from 'react';
 import * as shared from '../../styles/shared.style';
-import * as styles from './button-wrapper.style.js';
+import * as styles from './button-wrapper.style';
 import Spinner from '../spinner';
 
 export default function ButtonWrapper({

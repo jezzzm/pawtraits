@@ -1,6 +1,5 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import { Helmet } from 'react-helmet';
 import { useRecoilState } from 'recoil';
 import * as styles from '../styles/info.style';
 import * as shared from '../styles/shared.style';
@@ -10,29 +9,19 @@ import facebook from '../../static/facebook.png';
 import instagram from '../../static/instagram.png';
 
 export default function Info({ data }) {
-  const siteTitle = data.site.siteMetadata.title;
   const { description, fluid: img } = data.contentfulAsset;
 
   const [, setFormOpen] = useRecoilState(formOpen);
 
   return (
     <Layout>
-      <Helmet title={siteTitle} />
       <div css={[styles.inner, shared.modalInnerWrapper]}>
-        <h1 css={styles.title}>More Information</h1>
-        <img
-          css={styles.image}
-          src={img.src}
-          srcSet={img.srcSet}
-          sizes={img.sizes}
-          title={description}
-          alt={description}
-        />
         <div css={styles.copy}>
           <h2>
             <span role="img" aria-label="artist emoji">
               👩‍🎨
-            </span>{' '}
+            </span>
+            {' '}
             The Artist
           </h2>
           <p>
@@ -44,6 +33,14 @@ export default function Info({ data }) {
             like me, your pet is an important member of your family – what
             better way to celebrate that special bond you share!
           </p>
+          <img
+            css={styles.image}
+            src={img.src}
+            srcSet={img.srcSet}
+            sizes={img.sizes}
+            title={description}
+            alt={description}
+          />
           <p>
             A Pawtrait is a great gift, monument or simply a beautiful work of
             art. You will enjoy a lifetime of memories with it on your wall. I
@@ -56,6 +53,7 @@ export default function Info({ data }) {
           </p>
           <button
             css={[shared.ctaButton(), styles.button]}
+            type="button"
             onClick={() => {
               setFormOpen(true);
             }}
@@ -65,7 +63,8 @@ export default function Info({ data }) {
           <h2>
             <span role="img" aria-label="pencil emoji">
               ✎
-            </span>{' '}
+            </span>
+            {' '}
             The Process
           </h2>
           <h4>Paper</h4>
@@ -80,7 +79,8 @@ export default function Info({ data }) {
             pencils.
           </p>
           <h1 css={styles.hi}>
-            Say hi!{' '}
+            Say hi!
+            {' '}
             <span role="img" aria-label="wave emoji">
               &#128075;
             </span>
@@ -115,7 +115,11 @@ export default function Info({ data }) {
         </div>
       </div>
       <p css={styles.copyright}>
-        Copyright &copy; {new Date().getFullYear()} Sydney Pawtraits. All rights
+        Copyright &copy;
+        {' '}
+        {new Date().getFullYear()}
+        {' '}
+        Sydney Pawtraits. All rights
         reserved.
       </p>
     </Layout>
@@ -124,11 +128,6 @@ export default function Info({ data }) {
 
 export const pageQuery = graphql`
   query AboutQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     contentfulAsset(title: { eq: "nicki" }) {
       fluid(
         cropFocus: TOP

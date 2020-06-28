@@ -25,7 +25,7 @@ export default function LightboxWrapper({ previous, next, width, children }) {
   };
 
   useEffect(() => {
-    const keyListener = (event) => {
+    const keyListener = event => {
       if (event.key === 'ArrowRight') {
         next();
       } else if (event.key === 'ArrowLeft') {
@@ -46,7 +46,7 @@ export default function LightboxWrapper({ previous, next, width, children }) {
       dragDirectionLock
       dragConstraints={{ left: 0, right: 0 }}
       onDragEnd={handleDragEnd}
-      onDragStart={(e) => e.stopPropagation()}
+      onDragStart={e => e.stopPropagation()}
     >
       {children}
     </motion.div>

@@ -5,9 +5,7 @@ import useIsMounted from './use-is-mounted';
 export default function useModalOpen(atom) {
   const [isOpen, setIsOpen] = useRecoilState(atom);
   const isMounted = useIsMounted();
-  const actualWidth = useRef(() =>
-    isMounted ? document.body.scrollWidth : null
-  );
+  const actualWidth = useRef(() => (isMounted ? document.body.scrollWidth : null));
 
   useLayoutEffect(() => {
     const width = document.body.scrollWidth;

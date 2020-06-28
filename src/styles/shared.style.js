@@ -1,25 +1,33 @@
 import { css } from '@emotion/core';
 import { isDesktop } from '../utils/breakpoints';
 
+export const colours = {
+  copy: '#443636',
+  success: '#D1FFC7',
+  successLight: '#edffc7',
+  info: '#FFF5C7',
+  neutral: '#efeeee',
+};
+
 export const ctaButton = (type = 'success') => {
   let bgColor;
   let color;
   switch (type) {
-    case 'neutral':
-      bgColor = '#efeeee';
-      break;
-    case 'info':
-      bgColor = `#FFF5C7`;
-      color = '#222';
-      break;
-    case 'successLight':
-      bgColor = '#edffc7';
-      color = '#222';
-      break;
-    case 'success':
-    default:
-      bgColor = `#D1FFC7`;
-      color = '#222';
+  case 'neutral':
+    bgColor = colours.neutral;
+    break;
+  case 'info':
+    bgColor = colours.info;
+    color = colours.copy;
+    break;
+  case 'successLight':
+    bgColor = colours.successLight;
+    color = colours.copy;
+    break;
+  case 'success':
+  default:
+    bgColor = colours.success;
+    color = colours.copy;
   }
 
   return css`

@@ -7,11 +7,9 @@ const getHeight = () => window.innerHeight;
 
 export default function useWindowSize() {
   const isMounted = useIsMounted();
-  const [size, setSize] = useState(() =>
-    isMounted
-      ? { width: getWidth(), height: getHeight() }
-      : { width: 0, height: 0 }
-  );
+  const [size, setSize] = useState(() => (isMounted
+    ? { width: getWidth(), height: getHeight() }
+    : { width: 0, height: 0 }));
   const [isMobile, setIsMobile] = useState(false);
 
   const update = () => {
@@ -36,5 +34,5 @@ export default function useWindowSize() {
     }
   }, [isMounted, size.width]);
 
-  return { size, isMobile };
+  return { windowSize: size, isMobile };
 }

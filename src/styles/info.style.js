@@ -11,7 +11,7 @@ export const image = css`
   display: block;
   max-width: 360px;
   width: 100%;
-  margin 2rem auto 4rem;
+  margin 2rem auto;
 `;
 
 export const copy = css`

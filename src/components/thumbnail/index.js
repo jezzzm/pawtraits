@@ -11,7 +11,7 @@ export default function Thumbnail({
   sizes,
 }) {
   return (
-    <button type={'button'} onClick={onClick} css={styles.button}>
+    <button type="button" onClick={onClick} css={styles.button}>
       <picture css={styles.thumbnail}>
         <source srcSet={srcSetWebp} sizes={sizes} type="image/webp" />
         <source srcSet={srcSet} sizes={sizes} type="image/png" />

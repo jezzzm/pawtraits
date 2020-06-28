@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { isMobile, isDesktop } from '../../utils/breakpoints';
+import { colours } from '../../styles/shared.style';
 import fonts from './fonts.style';
 
 export const pageContainer = css`
@@ -25,7 +26,7 @@ export const layout = css`
     * {
       box-sizing: border-box;
       font-family: Karla, Helvetica, Arial, sans-serif;
-      color: #443636;
+      color: ${colours.copy};
     }
 
     body {

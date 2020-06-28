@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { useRecoilState } from 'recoil';
 import * as styles from './navigation.style';
-import * as shared from '../../styles/shared.style';
 import formOpen from '../../recoil/form-open';
 import Picture from '../picture';
 import useWindowSize from '../../utils/use-window-size';
+import NavButtons from './nav-buttons';
 
 export default function Navigation({ logo }) {
   const { title, fluid: img } = logo;
@@ -17,8 +17,8 @@ export default function Navigation({ logo }) {
     <nav id="header" css={styles.outer}>
       <div css={styles.inner}>
         {isMobile ? (
-          <Link to="/" css={styles.link}>
-            Home
+          <Link to="/" css={styles.link} activeClassName="active">
+            <span>Home</span>
           </Link>
         ) : (
           <Link to="/" css={styles.logo}>
@@ -31,14 +31,7 @@ export default function Navigation({ logo }) {
             />
           </Link>
         )}
-        <div css={styles.buttonContainer}>
-          <Link css={styles.link} to="/info">
-            More Info
-          </Link>
-          <button css={shared.ctaButton()} onClick={() => setFormOpen(true)}>
-            Get Your Own
-          </button>
-        </div>
+        <NavButtons isMobile={isMobile} onCTAClick={() => setFormOpen(true)} />
       </div>
     </nav>
   );

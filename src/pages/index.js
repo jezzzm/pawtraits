@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { graphql } from 'gatsby';
-import { Helmet } from 'react-helmet';
 import * as styles from '../styles/index.style';
 import Layout from '../components/layout';
 import LightboxWrapper from '../components/lightbox/wrapper';
@@ -12,24 +11,22 @@ import useModalOpen from '../utils/use-modal-open';
 import lightboxOpen from '../recoil/lightbox-open';
 
 export default function Home({ data }) {
-  const siteTitle = data.site.siteMetadata.title;
   const pawtraits = data.allContentfulPawtrait.nodes;
   const { title, fluid: img } = data.bigLogo;
 
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isOpenLightbox, setIsOpenLightbox] = useModalOpen(lightboxOpen);
 
-  const handleThumbClick = (index) => {
+  const handleThumbClick = index => {
     setLightboxIndex(index);
     setIsOpenLightbox(true);
   };
 
   return (
     <Layout>
-      <Helmet title={siteTitle} />
       <div css={styles.hero}>
         <h1>
-          <span>Sydney's premier pet portraiture</span>
+          <span>Sydney&apos;s premier pet portraiture</span>
         </h1>
         <Picture
           src={img.src}
@@ -42,7 +39,7 @@ export default function Home({ data }) {
       <div css={styles.gallery}>
         {pawtraits.map(({ image, name }, index) => (
           <Thumbnail
-            key={index + name + 'thumb'}
+            key={`${name} - thumb`}
             name={name}
             onClick={() => handleThumbClick(index)}
             src={image[0].fluid.src}
@@ -59,9 +56,9 @@ export default function Home({ data }) {
         isOpen={isOpenLightbox}
         setIsOpen={setIsOpenLightbox}
         Wrapper={LightboxWrapper}
-        screens={pawtraits.map(({ image, name }, index) => (
+        screens={pawtraits.map(({ image, name }) => (
           <Image
-            key={index + name}
+            key={`${name}-image`}
             name={name}
             src={image[0].fluid.src}
             alt={image[0].title}
@@ -77,11 +74,6 @@ export default function Home({ data }) {
 
 export const pageQuery = graphql`
   query HomeQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     bigLogo: contentfulAsset(title: { eq: "spLogoFull" }) {
       fluid(maxHeight: 420, maxWidth: 360) {
         sizes
