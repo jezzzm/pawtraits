@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { css } from '@emotion/core';
 import { isMobile, isDesktop } from '../../utils/breakpoints';
 

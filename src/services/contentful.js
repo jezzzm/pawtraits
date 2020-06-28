@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import * as contentful from 'contentful-management';
 
 const client = contentful.createClient({
@@ -22,7 +23,7 @@ export const requestPawtrait = async ({
     const space = await client.getSpace(process.env.GATSBY_CONTENTFUL_SPACE_ID);
     const env = await space.getEnvironment('master');
 
-    let newAsset = undefined;
+    let newAsset;
     const file = referenceImage.length ? referenceImage[0] : null;
     if (file) {
       const buffer = await file.arrayBuffer();

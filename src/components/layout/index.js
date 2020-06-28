@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import { Global } from '@emotion/core';
+import { Helmet } from 'react-helmet';
 import * as styles from './layout.style';
 import Navigation from '../navigation';
 import Form from '../form';
@@ -29,6 +30,11 @@ export default function Layout({ children }) {
         }
         title
       }
+      site {
+        siteMetadata {
+          title
+        } 
+      }
     }
   `);
 
@@ -37,6 +43,7 @@ export default function Layout({ children }) {
 
   return (
     <div css={styles.pageContainer}>
+      <Helmet title={data.siteTitle} />
       <Global styles={styles.layout} />
       <Navigation logo={data.smallLogo} />
 

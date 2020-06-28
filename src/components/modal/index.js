@@ -30,20 +30,19 @@ export default function Modal({
 
   const { title, fluid: img } = data.logo;
 
-  const { size } = useWindowSize();
-  const content =
-    screens.length && typeof screens === 'object' ? screens : [screens];
+  const { windowSize } = useWindowSize();
+  const content = screens.length && typeof screens === 'object' ? screens : [screens];
 
   const previous = useCallback(() => {
-    index > 0 ? setIndex((prev) => prev - 1) : setIndex(content.length - 1);
+    index > 0 ? setIndex(prev => prev - 1) : setIndex(content.length - 1);
   }, [index, setIndex, content.length]);
 
   const next = useCallback(() => {
-    index + 1 < content.length ? setIndex((prev) => prev + 1) : setIndex(0);
+    index + 1 < content.length ? setIndex(prev => prev + 1) : setIndex(0);
   }, [index, setIndex, content.length]);
 
   useEffect(() => {
-    const keyListener = (event) => {
+    const keyListener = event => {
       if (event.key === 'Escape') {
         setIsOpen(false);
       }
@@ -58,15 +57,16 @@ export default function Modal({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ y: size.height }}
+          initial={{ y: windowSize.height }}
           animate={{ y: 0 }}
-          exit={{ y: size.height }}
+          exit={{ y: windowSize.height }}
           transition={{ damping: 500 }}
           css={styles.modal}
-          style={{ height: size.height, width: size.width }}
+          style={{ height: windowSize.height, width: windowSize.width }}
         >
           <div css={styles.header}>
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
               css={[styles.close, shared.ctaButton('neutral')]}
             >
@@ -80,7 +80,7 @@ export default function Modal({
               sizes={img.sizes}
             />
           </div>
-          <Wrapper next={next} previous={previous} width={size.width}>
+          <Wrapper next={next} previous={previous} width={windowSize.width}>
             {content[index]}
           </Wrapper>
         </motion.div>

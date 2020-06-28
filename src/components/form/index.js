@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
@@ -43,10 +43,21 @@ export default function Form({ derek }) {
     trigger,
   } = useForm({ defaultValues: state.data });
   const { twoPets } = watch(['twoPets']);
-  const { size } = useWindowSize();
+  const { windowSize } = useWindowSize();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSuccessPage = state.currentPage === pageIndex.length - 1;
 
+  const next = async () => {
+    await trigger(pageIndex[state.currentPage]);
+    const stepErrors = hasAnyProperty(errors, pageIndex[state.currentPage]);
+    if (!stepErrors) {
+      setState({ ...state, currentPage: state.currentPage + 1 });
+    }
+  };
+
+  const previous = () => {
+    setState({ ...state, currentPage: state.currentPage - 1 });
+  };
   const onSubmit = async () => {
     const {
       requesterName,
@@ -77,19 +88,8 @@ export default function Form({ derek }) {
     setIsSubmitting(false);
     next();
   };
-  const next = async () => {
-    await trigger(pageIndex[state.currentPage]);
-    const stepErrors = hasAnyProperty(errors, pageIndex[state.currentPage]);
-    if (!stepErrors) {
-      setState({ ...state, currentPage: state.currentPage + 1 });
-    }
-  };
 
-  const previous = () => {
-    setState({ ...state, currentPage: state.currentPage - 1 });
-  };
-
-  const onChange = (event) => {
+  const onChange = event => {
     // we cannot keep uploaded files in state, let browser handle
     if (event.target.type !== 'file') {
       setState({
@@ -110,7 +110,7 @@ export default function Form({ derek }) {
     }
   };
 
-  const onBlur = async (event) => {
+  const onBlur = async event => {
     await trigger([event.target.name]);
   };
 
@@ -123,9 +123,9 @@ export default function Form({ derek }) {
   }, [formOpen, state.currentPage, setState, isSuccessPage]);
 
   return (
-    <Fragment>
+    <>
       <motion.div
-        animate={{ x: -1 * state.currentPage * size.width }}
+        animate={{ x: -1 * state.currentPage * windowSize.width }}
         transition={{
           type: 'spring',
           stiffness: 500,
@@ -139,7 +139,8 @@ export default function Form({ derek }) {
           </section> */}
           <section css={styles.page(0)}>
             <h2>
-              About You{' '}
+              About You
+              {' '}
               <span role="img" aria-label="human emoji">
                 👩‍💻
               </span>
@@ -189,7 +190,8 @@ export default function Form({ derek }) {
           </section>
           <section css={styles.page(1)}>
             <h2>
-              About Your Pet{' '}
+              About Your Pet
+              {' '}
               <span role="img" aria-label="pet emoji">
                 🐶
               </span>
@@ -225,7 +227,8 @@ export default function Form({ derek }) {
             />
             <aside css={styles.tips}>
               <h4>
-                Photo Tips{' '}
+                Photo Tips
+                {' '}
                 <span role="img" aria-label="lightbulb image">
                   💡
                 </span>
@@ -234,7 +237,7 @@ export default function Form({ derek }) {
                 <li>
                   A high resolution image is preferred (no larger than 10mb)
                 </li>
-                <li>Make sure your pet's head is in focus</li>
+                <li>Make sure your pet&apos;s head is in focus</li>
                 <li>
                   The photo should have adequate lighting: not washed out, not
                   too dark
@@ -253,7 +256,8 @@ export default function Form({ derek }) {
           </section>
           <section css={styles.page(2)}>
             <h2>
-              About the Pawtrait{' '}
+              About the Pawtrait
+              {' '}
               <span role="img" aria-label="artwork image">
                 🖼️
               </span>
@@ -269,7 +273,7 @@ export default function Form({ derek }) {
               />
 
               {Object.entries(pricing).map(
-                ([paperSize, prices], index, array) => {
+                ([paperSize, prices]) => {
                   if ((twoPets && prices.two) || (!twoPets && prices.one)) {
                     return (
                       <Input
@@ -289,7 +293,7 @@ export default function Form({ derek }) {
                     );
                   }
                   return null;
-                }
+                },
               )}
               <ErrorMessage message={errors.size} />
 
@@ -335,6 +339,7 @@ export default function Form({ derek }) {
             </p>
             <button
               css={shared.ctaButton('info')}
+              type="button"
               onClick={() => {
                 setState(initialFormState);
                 setFormOpen(false);
@@ -357,6 +362,6 @@ export default function Form({ derek }) {
           isLoading={isSubmitting}
         />
       )}
-    </Fragment>
+    </>
   );
 }

@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import * as styles from './image.style';
 
 export default function Image({ name, alt, src, srcSet, srcSetWebp, sizes }) {
   return (
-    <Fragment>
+    <>
       <div css={styles.info}>
         <h1>{name}</h1>
       </div>
@@ -19,6 +19,6 @@ export default function Image({ name, alt, src, srcSet, srcSetWebp, sizes }) {
           />
         </picture>
       </div>
-    </Fragment>
+    </>
   );
 }

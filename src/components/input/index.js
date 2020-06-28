@@ -16,7 +16,7 @@ const Input = forwardRef(
       required = false,
       childKey = undefined,
     },
-    ref
+    ref,
   ) => {
     const hasError = error?.message?.length > 0;
     const isCheckboxOrRadio = type === 'checkbox' || type === 'radio';
@@ -56,7 +56,7 @@ const Input = forwardRef(
         <ErrorMessage error={error} />
       </label>
     );
-  }
+  },
 );
 
 export default Input;

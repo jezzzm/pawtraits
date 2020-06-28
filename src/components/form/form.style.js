@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import { isDesktop } from '../../utils/breakpoints';
 
-export const wrapper = (numPages) => css`
+export const wrapper = numPages => css`
   width: calc(${numPages} * 100vw);
   overflow: hidden;
 `;

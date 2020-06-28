@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { isMobile, isDesktop } from '../../utils/breakpoints';
+import { colours } from '../../styles/shared.style';
 
 export const outer = css`
   position: fixed;
@@ -25,6 +26,7 @@ export const inner = css`
   justify-content: space-between;
   ${isMobile} {
     margin-bottom: 2rem;
+    margin-top: 1.2rem;
     align-items: baseline;
   }
   ${isDesktop} {
@@ -59,12 +61,17 @@ export const buttonContainer = css`
 `;
 
 export const link = css`
-  padding: 0.4rem 1.2rem;
+  padding: 0.4rem 0;
   text-decoration: none;
 
   ${isDesktop} {
     margin-right: 2rem;
     padding: 0.8rem 1.8rem;
+  }
+
+  &.active span {
+    border-bottom: 3px solid ${colours.copy};
+    padding-bottom: 0.4rem;
   }
 `;
 

@@ -21,7 +21,7 @@ export const buttonWrapper = css`
   }
 `;
 
-export const formButton = (position) => css`
+export const formButton = position => css`
   width: 50%;
   margin-${position}: 0.5rem;
 
