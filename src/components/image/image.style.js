@@ -19,6 +19,9 @@ export const image = css`
   ${isDesktop} {
     img {
       max-height: 100%;
+      transform: translateY(-50%);
+      top: 50%;
+      position: relative;
     }
   }
   ${isMobile} {
