@@ -1,7 +1,9 @@
 import React from 'react';
 import * as styles from './image.style';
+import useWindowSize from '../../utils/use-window-size';
 
 export default function Image({ name, alt, src, srcSet, srcSetWebp, sizes }) {
+  const { isMobile } = useWindowSize();
   return (
     <>
       <div css={styles.info}>
@@ -15,7 +17,7 @@ export default function Image({ name, alt, src, srcSet, srcSetWebp, sizes }) {
             alt={alt}
             src={src}
             loading="lazy"
-            draggable={false /*make conditional mobile/desktop*/}
+            draggable={isMobile}
           />
         </picture>
       </div>

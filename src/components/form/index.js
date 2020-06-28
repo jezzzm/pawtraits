@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import * as styles from './form.style';
 import * as shared from '../../styles/shared.style';
 import ButtonWrapper from './button-wrapper';
+import Picture from '../picture';
 import Input from '../input';
 import ErrorMessage from '../input/error-message';
 import { requestPawtrait } from '../../services/contentful';
@@ -59,32 +60,9 @@ export default function Form({ derek }) {
     setState({ ...state, currentPage: state.currentPage - 1 });
   };
   const onSubmit = async () => {
-    const {
-      requesterName,
-      requesterEmail,
-      requesterPhone,
-      petName,
-      breed,
-      description,
-      referenceImage,
-      size,
-      rushed,
-      additionalComments,
-    } = getValues();
-
+    const values = getValues();
     setIsSubmitting(true);
-    await requestPawtrait({
-      requesterName,
-      requesterEmail,
-      requesterPhone,
-      petName,
-      breed,
-      description,
-      referenceImage,
-      size,
-      rushed,
-      additionalComments,
-    });
+    await requestPawtrait(values);
     setIsSubmitting(false);
     next();
   };
@@ -225,6 +203,15 @@ export default function Form({ derek }) {
               onBlur={onBlur}
               ref={register}
             />
+            <Input
+              name="referenceImage"
+              label="Reference Photo"
+              type="file"
+              onChange={onChange}
+              onBlur={onBlur}
+              ref={register}
+              error={errors.referenceImage}
+            />
             <aside css={styles.tips}>
               <h4>
                 Photo Tips
@@ -244,15 +231,6 @@ export default function Form({ derek }) {
                 </li>
               </ul>
             </aside>
-            <Input
-              name="referenceImage"
-              label="Reference Photo"
-              type="file"
-              onChange={onChange}
-              onBlur={onBlur}
-              ref={register}
-              error={errors.referenceImage}
-            />
           </section>
           <section css={styles.page(2)}>
             <h2>
@@ -319,20 +297,13 @@ export default function Form({ derek }) {
           </section>
           <section css={[styles.page(3, true), styles.success]}>
             <h1>Success!</h1>
-            <picture>
-              <source
-                srcSet={img.srcSetWebp}
-                sizes={img.sizes}
-                type="image/webp"
-              />
-              <source srcSet={img.srcSet} sizes={img.sizes} type="image/png" />
-              <img
-                alt={title}
-                src={img.src}
-                loading="lazy"
-                draggable={false /*make conditional mobile/desktop*/}
-              />
-            </picture>
+            <Picture
+              srcSetWebp={img.srcSetWebp}
+              srcSet={img.srcSet}
+              src={img.src}
+              sizes={img.sizes}
+              alt={title}
+            />
             <p>
               Thanks for making your Pawtrait request. We will follow up within
               24 hours to finalise your order.
@@ -356,7 +327,7 @@ export default function Form({ derek }) {
           currentPage={state.currentPage}
           onPrevious={previous}
           onNext={next}
-          disableProgress={hasAnyProperty(errors, pageIndex[state.currentPage])}
+          disableProgress={hasAnyProperty(errors, pageIndex[state.currentPage]) || isSubmitting}
           onSubmit={handleSubmit(onSubmit)}
           numPages={pageIndex.length}
           isLoading={isSubmitting}
