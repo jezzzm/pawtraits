@@ -11,6 +11,7 @@ export const button = css`
   margin: 0 auto;
   background: white;
   border: 0;
+  cursor: pointer;
 `;
 
 export const thumbnail = css`

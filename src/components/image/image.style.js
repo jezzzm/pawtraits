@@ -7,6 +7,7 @@ export const imageContainer = css`
   max-height: 100%;
   width: 100%;
   max-width: 100%;
+  overflow: hidden;
 `;
 
 export const image = css`
@@ -14,10 +15,14 @@ export const image = css`
   align-self: center;
   max-width: 100%;
   max-height: 100%;
-
+  height: 100%;
+  ${isDesktop} {
+    img {
+      max-height: 100%;
+    }
+  }
   ${isMobile} {
     height: auto;
-
     margin: 0 auto;
   }
 `;
