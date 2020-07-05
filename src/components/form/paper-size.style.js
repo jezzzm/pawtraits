@@ -22,11 +22,11 @@ export const container = twoPets => css`
 export const rect = (size, hovering, selected) => {
   let colour = 'white';
 
-  if (size === selected) {
-    colour = colours.successLight;
-  }
   if (size === hovering) {
     colour = colours.info;
+  }
+  if (size === selected) {
+    colour = colours.successLight;
   }
 
   return css`
@@ -38,13 +38,6 @@ export const rect = (size, hovering, selected) => {
     justify-content: center;
     align-items: center;
     transition: 0.2s all;
-
-    &:hover {
-      background: ${colours.info};
-    }
-    &:active {
-      background: ${colours.successLight};
-    }
-
-`;
+    cursor: pointer;
+  `;
 };

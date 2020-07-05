@@ -24,11 +24,11 @@ const pageIndex = [
 ];
 
 const pricing = {
-  A6: { one: 169, dims: '105 x 148 mm' },
-  A5: { one: 296, two: 370, dims: '148 x 210 mm' },
-  A4: { one: 518, two: 647, dims: '210 x 297 mm' },
-  A3: { one: 906, two: 1132, dims: '297 x 420 mm' },
-  A2: { one: 1585, two: 1981, dims: '420 x 594 mm' },
+  A6: { one: 169, dims: '105 x 148' },
+  A5: { one: 296, two: 370, dims: '148 x 210' },
+  A4: { one: 518, two: 647, dims: '210 x 297' },
+  A3: { one: 906, two: 1132, dims: '297 x 420' },
+  A2: { one: 1585, two: 1981, dims: '420 x 594' },
 };
 
 export default function Form({ derek }) {
@@ -63,8 +63,10 @@ export default function Form({ derek }) {
   };
   const onSubmit = async () => {
     const values = getValues();
+    const quotedPrice = twoPets ? pricing[state.data.size].two : pricing[state.data.size].one;
+    const inclPrice = { ...values, quotedPrice };
     setIsSubmitting(true);
-    await requestPawtrait(values);
+    await requestPawtrait(inclPrice);
     setIsSubmitting(false);
     next();
   };
@@ -215,8 +217,8 @@ export default function Form({ derek }) {
               <PaperSize selected={state.data.size} twoPets={twoPets} hovering={paperHover} onPaperClick={handlePaperClick} onHoverChange={setPaperHover} />
               <div css={styles.table}>
                 <header css={[styles.tableHeader, styles.tableRow]}>
-                  <h4>Paper Size</h4>
-                  <h4>Dimensions</h4>
+                  <h4>Size</h4>
+                  <h4>Dimensions (mm)</h4>
                   <h4>Price</h4>
                   <h4>{' '}</h4>
                 </header>
@@ -232,6 +234,7 @@ export default function Form({ derek }) {
                           css={[styles.tableLabel(paperSize === paperHover, paperSize === state.data.size), styles.tableRow]}
                           onMouseEnter={() => setPaperHover(paperSize)}
                           onMouseLeave={() => setPaperHover(null)}
+                          htmlFor={`${paperSize}-radio`}
                         >
                           <span>{paperSize}</span>
                           <span>{prices.dims}</span>
@@ -242,6 +245,7 @@ export default function Form({ derek }) {
                             ref={register({
                               required: 'You must choose a Pawtrait size',
                             })}
+                            id={`${paperSize}-radio`}
                             type="radio"
                             onChange={onChange}
                             onBlur={onBlur}

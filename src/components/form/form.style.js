@@ -23,9 +23,7 @@ export const page = (index, isSuccessPage = false) => css`
   left: calc(${index} * 100vw);
   bottom: ${isSuccessPage ? 0 : '4rem'};
   top: 0;
-  ${isDesktop} {
-    top: 6rem;
-  }
+
   > * {
     max-width: 600px;
     margin-left: auto;
@@ -34,7 +32,7 @@ export const page = (index, isSuccessPage = false) => css`
 `;
 
 export const tips = css`
-  background: #fff5c7;
+  background: ${colours.info};
   padding: 1rem;
   margin-bottom: 2.4rem;
   ul {
@@ -80,19 +78,13 @@ export const tableLabel = (hovered, selected) => css`
     margin-top: 0.15rem;
   }
 
-  &:hover {
-    background: ${colours.info};
-  }
-
-  &:active, &:focus-within {
-    background: ${colours.successLight};
-  }
-
-  ${selected && `background: ${colours.successLight};`}
   ${hovered && `background: ${colours.info};`}
+  ${selected && `background: ${colours.successLight};`}
 `;
 
 export const tableHeader = css`
+  grid-column-gap: 1rem;
+
   h4 {
     margin: 0;
   }
