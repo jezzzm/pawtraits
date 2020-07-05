@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { isDesktop } from '../../utils/breakpoints';
+import { colours } from '../../styles/shared.style';
 
 export const wrapper = numPages => css`
   width: calc(${numPages} * 100vw);
@@ -68,4 +69,42 @@ export const success = css`
     margin: 4rem auto;
     font-size: 2rem;
   }
+`;
+
+export const tableLabel = (hovered, selected) => css`
+  transition: 0.2s all;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  margin-top: 0.4rem;
+  input[type="radio"] {
+    margin-top: 0.15rem;
+  }
+
+  &:hover {
+    background: ${colours.info};
+  }
+
+  &:active, &:focus-within {
+    background: ${colours.successLight};
+  }
+
+  ${selected && `background: ${colours.successLight};`}
+  ${hovered && `background: ${colours.info};`}
+`;
+
+export const tableHeader = css`
+  h4 {
+    margin: 0;
+  }
+
+`;
+
+export const tableRow = css`
+  padding: 0.6rem 0.6rem 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1em;
+`;
+
+export const table = css`
+  margin-bottom: 2.4rem;
 `;
