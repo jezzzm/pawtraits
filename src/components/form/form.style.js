@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import { isDesktop } from '../../utils/breakpoints';
+import { colours } from '../../styles/shared.style';
 
 export const wrapper = numPages => css`
   width: calc(${numPages} * 100vw);
@@ -22,9 +23,7 @@ export const page = (index, isSuccessPage = false) => css`
   left: calc(${index} * 100vw);
   bottom: ${isSuccessPage ? 0 : '4rem'};
   top: 0;
-  ${isDesktop} {
-    top: 6rem;
-  }
+
   > * {
     max-width: 600px;
     margin-left: auto;
@@ -33,7 +32,7 @@ export const page = (index, isSuccessPage = false) => css`
 `;
 
 export const tips = css`
-  background: #fff5c7;
+  background: ${colours.info};
   padding: 1rem;
   margin-bottom: 2.4rem;
   ul {
@@ -68,4 +67,36 @@ export const success = css`
     margin: 4rem auto;
     font-size: 2rem;
   }
+`;
+
+export const tableLabel = (hovered, selected) => css`
+  transition: 0.2s all;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  margin-top: 0.4rem;
+  input[type="radio"] {
+    margin-top: 0.15rem;
+  }
+
+  ${hovered && `background: ${colours.info};`}
+  ${selected && `background: ${colours.successLight};`}
+`;
+
+export const tableHeader = css`
+  grid-column-gap: 1rem;
+
+  h4 {
+    margin: 0;
+  }
+
+`;
+
+export const tableRow = css`
+  padding: 0.6rem 0.6rem 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1em;
+`;
+
+export const table = css`
+  margin-bottom: 2.4rem;
 `;

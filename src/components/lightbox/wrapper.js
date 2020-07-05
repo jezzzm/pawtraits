@@ -17,9 +17,9 @@ export default function LightboxWrapper({ previous, next, width, children }) {
   const handleDragEnd = async (event, info) => {
     const widthThreshhold = width / 2;
 
-    if (info.velocity.x < -1000 || info.offset.x < -1 * widthThreshhold) {
+    if (info.velocity.x < -600 || info.offset.x < -1 * widthThreshhold) {
       next();
-    } else if (info.velocity.x > 1000 || info.offset.x > widthThreshhold) {
+    } else if (info.velocity.x > 600 || info.offset.x > widthThreshhold) {
       previous();
     }
   };

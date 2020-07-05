@@ -99,12 +99,11 @@ export const requestPawtrait = async ({
       ...newAsset,
     };
 
-    const post = await env.createEntry('pawtraitRequest', {
+    await env.createEntry('pawtraitRequest', {
       fields,
     });
-
-    console.log(post);
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log('failed :', err);
   }
 };
